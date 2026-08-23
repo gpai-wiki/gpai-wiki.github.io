@@ -1,0 +1,34 @@
+{%- comment -%} One index row.  params: doc (required), tight, no_summary, no_uid, no_date {%- endcomment -%}
+{%- assign d = include.doc -%}
+<li>
+  <a class="row{% if include.tight %} row--tight{% endif %}" href="{{ d.url | relative_url }}">
+    {%- unless include.tight or include.no_uid %}
+    <span class="row__uid">{{ d.uid | default: "—" }}</span>
+    {%- endunless %}
+    {%- unless include.no_date %}<span class="row__date">{{ d.date | date: "%Y-%m-%d" }}</span>{% endunless %}
+    <span class="row__main">
+      <span class="row__t">{{ d.title | escape }}</span>
+      {%- if d.authors %}
+      <span class="row__by">
+        {%- if d.authors.first -%}{{ d.authors | join: ", " }}{%- else -%}{{ d.authors }}{%- endif -%}
+        {%- if d.venue %} · {{ d.venue }}{% endif -%}
+      </span>
+      {%- elsif d.author %}
+      <span class="row__by">{{ d.author }}{% if d.version %} · v{{ d.version }}{% endif %}</span>
+      {%- endif %}
+      {%- unless include.tight or include.no_summary %}
+        {%- if d.summary %}<span class="row__d">{{ d.summary | strip_html | truncate: 190 }}</span>{% endif -%}
+      {%- endunless %}
+      <span class="row__mdate">{{ d.date | date: "%Y-%m-%d" }}{% if d.uid %} · {{ d.uid }}{% endif %}</span>
+    </span>
+    <span class="row__end">
+      {%- comment -%} status outranks tags: one signal per row {%- endcomment -%}
+      {%- if d.status -%}
+        <span class="status" data-s="{{ d.status }}">{{ d.status }}</span>
+      {%- elsif d.tags and include.tight != true -%}
+        <span class="tag">{{ d.tags | first }}</span>
+        {%- if d.tags.size > 1 %}<span class="row__more">+{{ d.tags.size | minus: 1 }}</span>{% endif -%}
+      {%- endif -%}
+    </span>
+  </a>
+</li>

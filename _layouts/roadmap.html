@@ -1,0 +1,37 @@
+---
+layout: default
+---
+<div class="shell">
+  {% include dhead.html %}
+  <div class="doc">
+    <div class="doc__body">
+
+      <div class="meta">
+        {% if page.author %}{% capture v %}{{ page.author }}{% if page.handle %} · <a href="https://github.com/{{ page.handle }}">@{{ page.handle }}</a>{% endif %}{% endcapture %}{% include meta.html k="Author" v=v %}{% endif %}
+        {% if page.version %}{% include meta.html k="Version" v=page.version %}{% endif %}
+        {% capture v %}<span class="status" data-s="{{ page.status }}">{{ page.status }}</span>{% endcapture %}
+        {% if page.status %}{% include meta.html k="Status" v=v %}{% endif %}
+        {% if page.updated %}{% capture v %}{{ page.updated | date: "%Y-%m-%d" }}{% endcapture %}{% include meta.html k="Updated" v=v %}{% endif %}
+        {% if page.horizon %}{% include meta.html k="Horizon" v=page.horizon %}{% endif %}
+        {% if page.source %}{% capture v %}<a href="{{ page.source }}">{{ page.source | remove: "https://" | truncate: 52 }}</a>{% endcapture %}{% include meta.html k="Source" v=v %}{% endif %}
+        {%- if page.supersedes -%}
+          {%- assign ref = site.roadmaps | where: "url", page.supersedes | first -%}
+          {%- capture v %}<a href="{{ page.supersedes | relative_url }}">{% if ref %}{{ ref.uid }} — {{ ref.title | escape }}{% else %}{{ page.supersedes }}{% endif %}</a>{% endcapture -%}
+          {% include meta.html k="Supersedes" v=v %}
+        {%- endif %}
+      </div>
+
+      {% if page.status == "draft" or page.status == "proposed" %}
+        {% capture c %}This document is a proposal by its author. It is hosted here because it is
+        specific and falsifiable, not because the maintainers endorse it.{% endcapture %}
+        {% include note.html label="Editorial note" kind="quiet" content=c %}
+      {% endif %}
+
+      {% if page.summary %}<p class="prose lead" style="max-width:var(--measure);margin-top:var(--sp-5)">{{ page.summary }}</p>{% endif %}
+
+      <article class="prose">{{ content }}</article>
+      {% include pager.html %}
+    </div>
+    {% include rail.html %}
+  </div>
+</div>

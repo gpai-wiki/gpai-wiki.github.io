@@ -1,0 +1,11 @@
+{%- comment -%} audio  ·  params: src, type, title, caption {%- endcomment -%}
+<figure class="fig">
+  <div class="audio">
+    {%- if include.title %}<div class="audio__t">{{ include.title }}</div>{% endif %}
+    <audio controls preload="none">
+      <source src="{{ include.src | relative_url }}" type="{{ include.type | default: 'audio/mpeg' }}">
+      <a href="{{ include.src | relative_url }}">Download the audio</a>.
+    </audio>
+  </div>
+  {%- if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
+</figure>

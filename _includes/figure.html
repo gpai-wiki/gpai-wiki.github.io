@@ -1,0 +1,11 @@
+{%- comment -%} figure  ·  params: src, alt, n, caption, width, height, wide, bare {%- endcomment -%}
+<figure class="fig{% if include.wide %} fig--wide{% endif %}{% if include.bare %} fig--bare{% endif %}">
+  <div class="fig__frame">
+    <img src="{{ include.src | relative_url }}" alt="{{ include.alt | escape }}"
+         {% if include.width %}width="{{ include.width }}"{% endif %}
+         {% if include.height %}height="{{ include.height }}"{% endif %} loading="lazy" decoding="async">
+  </div>
+  {%- if include.caption %}
+  <figcaption>{% if include.n %}<b>Fig. {{ include.n }}</b>{% endif %}{{ include.caption | markdownify | remove: "<p>" | remove: "</p>" }}</figcaption>
+  {%- endif %}
+</figure>

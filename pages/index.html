@@ -1,0 +1,27 @@
+---
+layout: index-section
+section: pages
+kicker: Contributor pages
+title: Pages by people
+subtitle: >-
+  A namespace for individual researchers and engineers. Fork the repository, add a
+  folder under <span class="mono">_profiles/</span>, and open a pull request. Inside
+  your own page you have wide latitude; the archive sections stay neutral.
+---
+{% assign docs = site.profiles | sort: "title" %}
+{% if docs.size > 0 %}
+<ul class="rows">
+  {% for d in docs %}
+  <li><a class="row row--tight" href="{{ d.url | relative_url }}">
+    <span class="row__date mono">{% if d.handle %}@{{ d.handle }}{% endif %}</span>
+    <span class="row__main">
+      <span class="row__t">{{ d.title | escape }}</span>
+      {% if d.subtitle %}<span class="row__by">{{ d.subtitle }}</span>{% endif %}
+    </span>
+    <span class="row__end">{% if d.updated %}<span class="uid">{{ d.updated | date: "%Y-%m-%d" }}</span>{% endif %}</span>
+  </a></li>
+  {% endfor %}
+</ul>
+{% else %}
+<div class="empty">no contributor pages yet — <a class="tlink" href="{{ '/contribute/' | relative_url }}">be the first</a></div>
+{% endif %}

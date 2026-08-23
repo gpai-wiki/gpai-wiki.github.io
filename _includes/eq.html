@@ -1,0 +1,5 @@
+{%- comment -%} numbered display equation  ·  params: tex (required), n (optional) {%- endcomment -%}
+<div class="eq">
+  <div class="eq__body">\[ {{ include.tex }} \]</div>
+  {%- if include.n %}<div class="eq__n">({{ include.n }})</div>{% endif %}
+</div>

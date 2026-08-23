@@ -1,0 +1,39 @@
+---
+layout: default
+---
+<div class="shell">
+  {% include dhead.html %}
+  <div class="doc">
+    <div class="doc__body">
+
+      <div class="meta">
+        {% if page.status %}{% capture v %}<span class="status" data-s="{{ page.status }}">{{ page.status }}</span>{% endcapture %}{% include meta.html k="Status" v=v %}{% endif %}
+        {% if page.difficulty %}{% include meta.html k="Difficulty" v=page.difficulty %}{% endif %}
+        {% if page.opened %}{% capture v %}{{ page.opened | date: "%Y-%m-%d" }}{% endcapture %}{% include meta.html k="Opened" v=v %}{% endif %}
+        {% if page.proposed_by %}{% capture v %}<a href="https://github.com/{{ page.proposed_by }}">@{{ page.proposed_by }}</a>{% endcapture %}{% include meta.html k="Proposed by" v=v %}{% endif %}
+        {% if page.resolves %}{% include meta.html k="Resolved by" v=page.resolves %}{% endif %}
+      </div>
+
+      {% if page.statement %}
+        {% capture c %}{{ page.statement }}{% endcapture %}
+        {% include note.html label="Problem statement" content=c %}
+      {% endif %}
+
+      <article class="prose">{{ content }}</article>
+
+      <section style="margin-top:var(--sp-8)">
+        {% include rhead.html label="work on this" %}
+        <p class="dim" style="max-width:var(--measure);line-height:1.6">
+          Partial results, negative results and sharper restatements are all welcome.
+          Open a pull request that edits this file, or add a
+          <a class="tlink" href="{{ '/papers/' | relative_url }}">paper</a> or
+          <a class="tlink" href="{{ '/systems/' | relative_url }}">implementation</a>
+          entry that references <span class="mono">{{ page.uid }}</span>.
+        </p>
+      </section>
+
+      {% include pager.html %}
+    </div>
+    {% include rail.html %}
+  </div>
+</div>

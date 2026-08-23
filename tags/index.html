@@ -1,0 +1,27 @@
+---
+layout: index-section
+section: tags
+title: Tag directory
+subtitle: Every tag in the archive, and everything filed under it.
+---
+{% assign all = site.papers | concat: site.roadmaps | concat: site.systems | concat: site.concepts | concat: site.problems | concat: site.posts %}
+{% assign tags = "" | split: "" %}
+{% for d in all %}{% for t in d.tags %}{% assign tags = tags | push: t %}{% endfor %}{% endfor %}
+{% assign tags = tags | uniq | sort %}
+
+<div class="tagcloud" style="margin-bottom:var(--sp-6)">
+  {% for t in tags %}
+    {% assign n = all | where_exp: "d", "d.tags contains t" | size %}
+    <a href="#{{ t | slugify }}">{{ t }}<span>{{ n }}</span></a>
+  {% endfor %}
+</div>
+
+{% for t in tags %}
+{% assign group = all | where_exp: "d", "d.tags contains t" | sort: "date" | reverse %}
+<section class="block" id="{{ t | slugify }}" style="scroll-margin-top:calc(var(--bar-h) + 16px)">
+  {% include rhead.html label=t n=group.size %}
+  <ul class="rows">{% for d in group %}{% include row.html doc=d tight=true %}{% endfor %}</ul>
+</section>
+{% endfor %}
+
+{% if tags.size == 0 %}<div class="empty">no tags yet</div>{% endif %}

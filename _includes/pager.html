@@ -1,0 +1,21 @@
+{%- assign docs = site[page.collection] | sort: "date" | reverse -%}
+{%- assign i = 0 -%}
+{%- for d in docs %}{% if d.url == page.url %}{% assign i = forloop.index0 %}{% endif %}{% endfor -%}
+{%- assign prev = null -%}{%- assign next = null -%}
+{%- if i > 0 %}{% assign prev = docs[i | minus: 1] %}{% endif -%}
+{%- assign last = docs.size | minus: 1 -%}
+{%- if i < last %}{% assign j = i | plus: 1 %}{% assign next = docs[j] %}{% endif -%}
+{%- if prev or next %}
+<nav class="pager" aria-label="Adjacent entries">
+  {%- if prev %}
+  <a class="pager__a" href="{{ prev.url | relative_url }}">
+    <div class="pager__k">newer</div><div class="pager__t">{{ prev.title | escape }}</div>
+  </a>
+  {%- else %}<span class="pager__a"></span>{% endif %}
+  {%- if next %}
+  <a class="pager__a pager__a--n" href="{{ next.url | relative_url }}">
+    <div class="pager__k">older</div><div class="pager__t">{{ next.title | escape }}</div>
+  </a>
+  {%- else %}<span class="pager__a"></span>{% endif %}
+</nav>
+{%- endif %}

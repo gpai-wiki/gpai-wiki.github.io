@@ -1,0 +1,101 @@
+# ─── identity ────────────────────────────────────────────────────────────────
+title:       GPAI Wiki
+short_title: GPAI.WIKI
+tagline:     An archive of the work toward general-purpose artificial intelligence.
+description: >-
+  A curated archive of research, roadmaps, implementations and open problems
+  on the path to general-purpose artificial intelligence (GPAI).
+url:         "https://gpai-wiki.github.io"
+baseurl:     ""
+lang:        en
+repository:  gpai-wiki/gpai-wiki.github.io
+repo_url:    "https://github.com/gpai-wiki/gpai-wiki.github.io"
+
+# ─── build ───────────────────────────────────────────────────────────────────
+markdown:    kramdown
+highlighter: rouge
+permalink:   pretty
+timezone:    Etc/UTC
+
+kramdown:
+  input: GFM
+  hard_wrap: false
+  auto_ids: true
+  footnote_backlink: "&#8617;&#xfe0e;"
+  math_engine: mathjax          # emits <script type="math/tex">, rendered by KaTeX
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+sass:
+  style: compressed
+  sourcemap: never
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+feed:
+  collections:
+    papers:
+      path: "/papers/feed.xml"
+    roadmaps:
+      path: "/roadmaps/feed.xml"
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - README.md
+  - CONTRIBUTING.md
+  - LICENSE
+  - .github
+
+# ─── collections ─────────────────────────────────────────────────────────────
+collections:
+  papers:
+    output: true
+    permalink: /papers/:name/
+    label: Papers
+  roadmaps:
+    output: true
+    permalink: /roadmaps/:name/
+    label: Roadmaps
+  systems:
+    output: true
+    permalink: /systems/:name/
+    label: Implementations
+  concepts:
+    output: true
+    permalink: /wiki/:name/
+    label: Concepts
+  problems:
+    output: true
+    permalink: /open-problems/:name/
+    label: Open Problems
+  profiles:
+    output: true
+    permalink: /pages/:name/
+    label: Contributor Pages
+
+# ─── front-matter defaults ───────────────────────────────────────────────────
+defaults:
+  # maths is expected anywhere in a research archive; opt out with `math: false`
+  - scope: { path: "" }
+    values: { math: true }
+  - scope: { path: "", type: papers }
+    values: { layout: paper,   section: papers }
+  - scope: { path: "", type: roadmaps }
+    values: { layout: roadmap, section: roadmaps }
+  - scope: { path: "", type: systems }
+    values: { layout: system,  section: systems }
+  - scope: { path: "", type: concepts }
+    values: { layout: concept, section: wiki }
+  - scope: { path: "", type: problems }
+    values: { layout: problem, section: open-problems }
+  - scope: { path: "", type: profiles }
+    values: { layout: profile, section: pages }
+  - scope: { path: "_posts" }
+    values: { layout: log-entry, section: log, permalink: /log/:title/ }

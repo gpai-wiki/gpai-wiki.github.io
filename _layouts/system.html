@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<div class="shell">
+  {% include dhead.html %}
+  <div class="doc">
+    <div class="doc__body">
+
+      <div class="meta">
+        {% if page.repo %}{% capture v %}<a href="{{ page.repo }}">{{ page.repo | remove: "https://github.com/" | remove: "https://" }}</a>{% endcapture %}{% include meta.html k="Repository" v=v %}{% endif %}
+        {% if page.language %}{% include meta.html k="Language" v=page.language %}{% endif %}
+        {% if page.license %}{% include meta.html k="License" v=page.license %}{% endif %}
+        {% if page.hardware %}{% include meta.html k="Hardware" v=page.hardware %}{% endif %}
+        {% if page.status %}{% capture v %}<span class="status" data-s="{{ page.status }}">{{ page.status }}</span>{% endcapture %}{% include meta.html k="Status" v=v %}{% endif %}
+        {%- if page.reproduces -%}
+          {%- assign ref = site.papers | where: "url", page.reproduces | first -%}
+          {%- capture v %}<a href="{{ page.reproduces | relative_url }}">{% if ref %}{{ ref.uid }} — {{ ref.title | escape }}{% else %}{{ page.reproduces }}{% endif %}</a>{% endcapture -%}
+          {% include meta.html k="Reproduces" v=v %}
+        {%- endif %}
+      </div>
+
+      {% if page.install %}
+      <div style="margin-block:var(--sp-5)">
+        {% include rhead.html label="get it" %}
+        {% include copybox.html content=page.install %}
+      </div>
+      {% endif %}
+
+      {% if page.summary %}<p class="prose lead" style="max-width:var(--measure)">{{ page.summary }}</p>{% endif %}
+      <article class="prose">{{ content }}</article>
+      {% include pager.html %}
+    </div>
+    {% include rail.html %}
+  </div>
+</div>

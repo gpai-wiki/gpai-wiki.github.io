@@ -1,0 +1,46 @@
+---
+layout: default
+---
+{%- comment -%} backlinks: any document whose rendered body links to this concept {%- endcomment -%}
+<div class="shell">
+  {% include dhead.html %}
+  <div class="doc">
+    <div class="doc__body">
+      {% if page.aka %}
+      <div class="meta">
+        {% capture v %}{{ page.aka | join: " · " }}{% endcapture %}
+        {% include meta.html k="Also called" v=v %}
+        {% if page.symbol %}{% include meta.html k="Notation" v=page.symbol %}{% endif %}
+        {% if page.coined %}{% include meta.html k="Origin" v=page.coined %}{% endif %}
+      </div>
+      {% endif %}
+
+      <article class="prose">{{ content }}</article>
+
+      {% if page.see_also %}
+      <section style="margin-top:var(--sp-7)">
+        {% include rhead.html label="see also" %}
+        <ul class="rows">
+          {%- for slug in page.see_also -%}
+            {%- assign c = site.concepts | where_exp: "x", "x.url contains slug" | first -%}
+            {%- if c %}{% include row.html doc=c tight=true no_date=true %}{% endif -%}
+          {%- endfor -%}
+        </ul>
+      </section>
+      {% endif %}
+
+      {%- assign back = "" | split: "" -%}
+      {%- for d in site.papers %}{% if d.content contains page.url %}{% assign back = back | push: d %}{% endif %}{% endfor -%}
+      {%- for d in site.roadmaps %}{% if d.content contains page.url %}{% assign back = back | push: d %}{% endif %}{% endfor -%}
+      {%- for d in site.problems %}{% if d.content contains page.url %}{% assign back = back | push: d %}{% endif %}{% endfor -%}
+      {%- for d in site.systems %}{% if d.content contains page.url %}{% assign back = back | push: d %}{% endif %}{% endfor -%}
+      {%- if back.size > 0 %}
+      <section style="margin-top:var(--sp-7)">
+        {% include rhead.html label="referenced by" n=back.size %}
+        <ul class="rows">{% for d in back %}{% include row.html doc=d tight=true %}{% endfor %}</ul>
+      </section>
+      {%- endif %}
+    </div>
+    {% include rail.html %}
+  </div>
+</div>

@@ -1,0 +1,33 @@
+---
+layout: default
+---
+<div class="shell">
+  {% include dhead.html %}
+  <div class="doc">
+    <div class="doc__body">
+
+      <div class="meta">
+        {% capture v %}{{ page.venue }}{% if page.year %} · {{ page.year }}{% endif %}{% endcapture %}
+        {% include meta.html k="Venue" v=v %}
+        {% if page.url_arxiv %}{% capture v %}<a href="{{ page.url_arxiv }}">{{ page.url_arxiv | remove: "https://" }}</a>{% endcapture %}{% include meta.html k="Preprint" v=v %}{% endif %}
+        {% if page.url_pdf %}{% capture v %}<a href="{{ page.url_pdf }}">PDF</a>{% endcapture %}{% include meta.html k="PDF" v=v %}{% endif %}
+        {% if page.url_code %}{% capture v %}<a href="{{ page.url_code }}">{{ page.url_code | remove: "https://github.com/" }}</a>{% endcapture %}{% include meta.html k="Code" v=v %}{% endif %}
+        {% if page.added_by %}{% capture v %}<a href="https://github.com/{{ page.added_by }}">@{{ page.added_by }}</a>{% endcapture %}{% include meta.html k="Added by" v=v %}{% endif %}
+      </div>
+
+      {% if page.summary %}<p class="prose lead" style="max-width:var(--measure)">{{ page.summary }}</p>{% endif %}
+
+      <article class="prose">{{ content }}</article>
+
+      {% if page.bibtex %}
+      <section style="margin-top:var(--sp-8)">
+        {% include rhead.html label="cite" %}
+        {% include copybox.html content=page.bibtex %}
+      </section>
+      {% endif %}
+
+      {% include pager.html %}
+    </div>
+    {% include rail.html %}
+  </div>
+</div>

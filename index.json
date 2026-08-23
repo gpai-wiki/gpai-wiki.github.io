@@ -1,0 +1,33 @@
+---
+layout: null
+permalink: /index.json
+---
+{%- assign all = site.papers | concat: site.roadmaps | concat: site.systems | concat: site.concepts | concat: site.problems | sort: "date" | reverse -%}
+{
+  "name": {{ site.title | jsonify }},
+  "description": {{ site.description | jsonify }},
+  "home_page_url": {{ site.url | append: site.baseurl | jsonify }},
+  "feed_url": {{ "/index.json" | absolute_url | jsonify }},
+  "generated": {{ site.time | date_to_xmlschema | jsonify }},
+  "sections": [
+    {%- for c in site.data.nav %}
+    { "label": {{ c.label | jsonify }}, "url": {{ c.url | absolute_url | jsonify }} }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ],
+  "items": [
+    {%- for d in all %}
+    {
+      "id": {{ d.url | absolute_url | jsonify }},
+      "uid": {{ d.uid | default: "" | jsonify }},
+      "collection": {{ d.collection | jsonify }},
+      "title": {{ d.title | jsonify }},
+      "url": {{ d.url | absolute_url | jsonify }},
+      "date_published": {{ d.date | date_to_xmlschema | jsonify }},
+      "summary": {{ d.summary | default: "" | strip_html | jsonify }},
+      "tags": {{ d.tags | default: empty | jsonify }},
+      "status": {{ d.status | default: "" | jsonify }},
+      "authors": {{ d.authors | default: d.author | default: empty | jsonify }}
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor %}
+  ]
+}

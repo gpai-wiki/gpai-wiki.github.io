@@ -1,0 +1,36 @@
+---
+layout: index-section
+section: wiki
+kicker: Concepts
+title: The wiki
+subtitle: >-
+  Short, canonical, heavily cross-linked definitions. Everything else on this site
+  links back into here, so keep entries neutral and keep them current.
+---
+{% assign docs = site.concepts | sort: "title" %}
+{% assign groups = docs | group_by_exp: "d", "d.title | slice: 0 | upcase" %}
+
+{% if docs.size > 0 %}
+<div class="tagcloud" style="margin-bottom:var(--sp-5)">
+  {% for g in groups %}<a href="#letter-{{ g.name | downcase }}">{{ g.name }}</a>{% endfor %}
+</div>
+
+{% for g in groups %}
+<section class="block" id="letter-{{ g.name | downcase }}" style="scroll-margin-top:calc(var(--bar-h) + 16px)">
+  {% include rhead.html label=g.name n=g.items.size %}
+  <ul class="rows">
+    {% for d in g.items %}
+    <li><a class="row row--term" href="{{ d.url | relative_url }}">
+      <span class="row__main">
+        <span class="row__t">{{ d.title | escape }}</span>
+        {% if d.aka %}<span class="row__by">{{ d.aka | join: " · " }}</span>{% endif %}
+      </span>
+      <span class="row__main"><span class="row__d">{{ d.summary | strip_html }}</span></span>
+    </a></li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}
+{% else %}
+<div class="empty">no concepts yet</div>
+{% endif %}

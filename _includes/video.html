@@ -1,0 +1,24 @@
+{%- comment -%} video  ·  params: src + poster + type + captions, OR youtube (id). plus caption, n, wide, loop {%- endcomment -%}
+<figure class="fig{% if include.wide %} fig--wide{% endif %}">
+  <div class="fig__frame">
+    {%- if include.youtube %}
+    <div class="ratio" style="padding-top:56.25%">
+      <iframe src="https://www.youtube-nocookie.com/embed/{{ include.youtube }}"
+              title="{{ include.caption | default: 'Video' | escape }}"
+              loading="lazy" allowfullscreen
+              referrerpolicy="strict-origin-when-cross-origin"></iframe>
+    </div>
+    {%- else %}
+    <video controls preload="metadata"
+           {% if include.poster %}poster="{{ include.poster | relative_url }}"{% endif %}
+           {% if include.loop %}loop muted playsinline{% endif %}>
+      <source src="{{ include.src | relative_url }}" type="{{ include.type | default: 'video/mp4' }}">
+      {%- if include.captions %}<track kind="captions" src="{{ include.captions | relative_url }}" srclang="en" label="English" default>{% endif %}
+      <a href="{{ include.src | relative_url }}">Download the video</a>.
+    </video>
+    {%- endif %}
+  </div>
+  {%- if include.caption %}
+  <figcaption>{% if include.n %}<b>Fig. {{ include.n }}</b>{% endif %}{{ include.caption }}</figcaption>
+  {%- endif %}
+</figure>

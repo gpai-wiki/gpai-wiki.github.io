@@ -1,0 +1,10 @@
+{%- comment -%} rule head — LABEL ------------- n   ·  params: label, url (optional), n (optional) {%- endcomment -%}
+<div class="rhead">
+  {%- if include.url -%}
+    <a class="rhead__l" href="{{ include.url | relative_url }}">{{ include.label }}</a>
+  {%- else -%}
+    <span class="rhead__l">{{ include.label }}</span>
+  {%- endif -%}
+  <span class="rhead__line" aria-hidden="true"></span>
+  {%- if include.n %}<span class="rhead__n">{{ include.n }}</span>{% endif -%}
+</div>

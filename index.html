@@ -1,0 +1,92 @@
+---
+layout: default
+title: GPAI Wiki
+section: home
+---
+<div class="shell">
+
+  <section class="hero">
+    <h1 class="hero__h">An archive of the work toward general-purpose artificial intelligence.</h1>
+    <p class="hero__p">
+      Papers worth reading, roadmaps worth arguing with, implementations that actually run,
+      and the problems nobody has solved yet — collected in one place, edited in the open,
+      and kept in plain text so it survives.
+    </p>
+    <div class="hero__meta">
+      <span><b>{{ site.papers.size }}</b> papers</span>
+      <span><b>{{ site.roadmaps.size }}</b> roadmaps</span>
+      <span><b>{{ site.systems.size }}</b> implementations</span>
+      <span><b>{{ site.concepts.size }}</b> concepts</span>
+      <span><b>{{ site.problems | where: "status", "open" | size }}</b> open problems</span>
+      <span><a class="tlink" href="{{ '/contribute/' | relative_url }}">anyone can add to it &rarr;</a></span>
+    </div>
+  </section>
+
+  <div class="home-grid">
+
+    <div>
+      <section class="block">
+        {% assign papers = site.papers | sort: "date" | reverse %}
+        {% include rhead.html label="papers" url="/papers/" n=site.papers.size %}
+        <ul class="rows">{% for d in papers limit: 6 %}{% include row.html doc=d %}{% endfor %}</ul>
+        <a class="more" href="{{ '/papers/' | relative_url }}">all papers</a>
+      </section>
+
+      <section class="block">
+        {% assign rm = site.roadmaps | sort: "date" | reverse %}
+        {% include rhead.html label="roadmaps &amp; proposals" url="/roadmaps/" n=site.roadmaps.size %}
+        <ul class="rows">{% for d in rm limit: 4 %}{% include row.html doc=d %}{% endfor %}</ul>
+        <a class="more" href="{{ '/roadmaps/' | relative_url }}">all roadmaps</a>
+      </section>
+
+      <section class="block">
+        {% assign sys = site.systems | sort: "date" | reverse %}
+        {% include rhead.html label="implementations" url="/systems/" n=site.systems.size %}
+        <ul class="rows">{% for d in sys limit: 4 %}{% include row.html doc=d %}{% endfor %}</ul>
+        <a class="more" href="{{ '/systems/' | relative_url }}">all implementations</a>
+      </section>
+    </div>
+
+    <aside>
+      <section class="block">
+        {% assign op = site.problems | where: "status", "open" | sort: "uid" %}
+        {% include rhead.html label="open problems" url="/open-problems/" n=op.size %}
+        <ul class="stack">
+          {% for d in op limit: 5 %}
+          <li><a class="stack__i" href="{{ d.url | relative_url }}">
+            <div class="stack__t"><span class="uid">{{ d.uid }}</span> &nbsp;{{ d.title | escape }}</div>
+            {% if d.summary %}<div class="stack__d">{{ d.summary | strip_html | truncate: 96 }}</div>{% endif %}
+          </a></li>
+          {% endfor %}
+        </ul>
+        <a class="more" href="{{ '/open-problems/' | relative_url }}">all problems</a>
+      </section>
+
+      <section class="block">
+        {% assign cs = site.concepts | sort: "title" %}
+        {% include rhead.html label="concepts" url="/wiki/" n=site.concepts.size %}
+        <div class="tagcloud" style="padding-block:8px">
+          {% for c in cs limit: 14 %}<a href="{{ c.url | relative_url }}">{{ c.title }}</a>{% endfor %}
+        </div>
+        <a class="more" href="{{ '/wiki/' | relative_url }}">the whole wiki</a>
+      </section>
+
+      <section class="block">
+        {% include rhead.html label="log" url="/log/" %}
+        <ul class="rows">
+          {% for p in site.posts limit: 4 %}{% include row.html doc=p tight=true %}{% endfor %}
+        </ul>
+      </section>
+
+      <section class="block">
+        {% include rhead.html label="add your own page" %}
+        <p class="dim" style="font-size:var(--t-sm);line-height:1.6;margin-bottom:12px">
+          Fork the repository, drop a Markdown file into the right folder, open a pull request.
+          Accepted entries are published here under your name.
+        </p>
+        <a class="chip" href="{{ '/contribute/' | relative_url }}">read the guide</a>
+      </section>
+    </aside>
+
+  </div>
+</div>

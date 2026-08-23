@@ -1,0 +1,46 @@
+<footer class="foot">
+  <div class="shell">
+    <div class="foot__grid">
+      <div class="foot__col">
+        <div class="label" style="margin-bottom:10px">{{ site.short_title }}</div>
+        <p class="foot__note">{{ site.tagline }}</p>
+      </div>
+
+      <div class="foot__col">
+        <div class="label" style="margin-bottom:10px">Archive</div>
+        <ul>
+          <li><a href="{{ '/papers/'        | relative_url }}">Papers</a></li>
+          <li><a href="{{ '/roadmaps/'      | relative_url }}">Roadmaps</a></li>
+          <li><a href="{{ '/systems/'       | relative_url }}">Implementations</a></li>
+          <li><a href="{{ '/wiki/'          | relative_url }}">Concepts</a></li>
+          <li><a href="{{ '/open-problems/' | relative_url }}">Open problems</a></li>
+        </ul>
+      </div>
+
+      <div class="foot__col">
+        <div class="label" style="margin-bottom:10px">Participate</div>
+        <ul>
+          <li><a href="{{ '/contribute/' | relative_url }}">How to contribute</a></li>
+          <li><a href="{{ '/pages/'      | relative_url }}">Contributor pages</a></li>
+          <li><a href="{{ '/log/'        | relative_url }}">Change log</a></li>
+          <li><a href="{{ '/tags/'       | relative_url }}">Tag directory</a></li>
+        </ul>
+      </div>
+
+      <div class="foot__col">
+        <div class="label" style="margin-bottom:10px">Machine</div>
+        <ul>
+          <li><a href="{{ '/feed.xml'    | relative_url }}">Atom feed</a></li>
+          <li><a href="{{ '/index.json'  | relative_url }}">JSON index</a></li>
+          <li><a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></li>
+          <li><a href="{{ site.repo_url }}" rel="noopener">Source</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="foot__bottom">
+      <span>Text CC BY 4.0 · code MIT unless noted otherwise</span>
+      <span>{{ site.url | remove: "https://" }}</span>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,28 @@
+---
+layout: default
+---
+<div class="shell">
+  <div class="userpage">
+    <div class="userpage__strip">
+      <span>Contributor page</span>
+      <span>·</span>
+      <span>maintained by <b>{% if page.handle %}<a href="https://github.com/{{ page.handle }}" rel="noopener">@{{ page.handle }}</a>{% else %}{{ page.author }}{% endif %}</b></span>
+      <span>·</span>
+      <span>views are the author's own</span>
+      {% if page.updated %}<span style="margin-left:auto">updated {{ page.updated | date: "%Y-%m-%d" }}</span>{% endif %}
+    </div>
+
+    <div class="userpage__body">
+      <h1 class="dhead__h" style="max-width:28ch">{{ page.title }}</h1>
+      {% if page.subtitle %}<p class="dhead__sub">{{ page.subtitle }}</p>{% endif %}
+
+      {% if page.links %}
+      <div class="meta">
+        {% for l in page.links %}{% capture v %}<a href="{{ l.url }}">{{ l.url | remove: "https://" }}</a>{% endcapture %}{% include meta.html k=l.label v=v %}{% endfor %}
+      </div>
+      {% endif %}
+
+      <article class="prose" style="margin-top:var(--sp-6)">{{ content }}</article>
+    </div>
+  </div>
+</div>

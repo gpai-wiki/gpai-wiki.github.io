@@ -1,0 +1,137 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   INSTRUMENT — design tokens
+   Near-zero colour. Hairlines instead of shadows. Zero radius. One signal.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+:root {
+  /* — type families —————————————————————————————————————————————— */
+  --f-ui:   "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+            "Helvetica Neue", Arial, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
+            Consolas, "Liberation Mono", monospace;
+  --f-text: "Source Serif 4", "Iowan Old Style", Charter, Georgia,
+            "Times New Roman", serif;
+
+  /* — type scale (compact) ——————————————————————————————————————— */
+  --t-2xs: 10.5px;   /* rail labels */
+  --t-xs:  11.5px;   /* tags, footnotes */
+  --t-sm:  12.5px;   /* metadata, IDs, dates */
+  --t-base:14.5px;   /* index rows, UI */
+  --t-md:  16px;
+  --t-lg:  19px;
+  --t-xl:  24px;
+  --t-2xl: 31px;
+  --t-3xl: 40px;
+
+  --lh-tight: 1.22;
+  --lh-ui:    1.45;
+  --lh-prose: 1.68;
+
+  --track-label: 0.09em;   /* uppercase mono labels */
+  --track-tight: -0.011em; /* large grotesk headings */
+
+  /* — measure & rhythm ——————————————————————————————————————————— */
+  --measure: 42rem;   /* ~72 characters at the prose size */
+  --shell:   1180px;
+  --shell-wide: 1420px;
+  --gut:     24px;
+  --bar-h:   49px;
+
+  --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;  --sp-4: 16px;
+  --sp-5: 24px;  --sp-6: 32px;  --sp-7: 48px;  --sp-8: 64px;  --sp-9: 96px;
+
+  --radius: 0;   /* deliberate: nothing on this site is rounded */
+
+  /* — motion ————————————————————————————————————————————————————— */
+  --ease: cubic-bezier(0.2, 0, 0, 1);
+  --dur:  110ms;
+}
+
+/* ── LIGHT (default) ─────────────────────────────────────────────────────── */
+:root {
+  --ground:    #fbfaf8;   /* warm paper, not white */
+  --ground-2:  #f3f1ed;   /* raised: meta bars, code */
+  --ground-3:  #eae7e1;   /* pressed / hover */
+  --ground-in: #16181a;   /* inverted chip */
+
+  --ink:       #16181a;
+  --ink-2:     #4a5054;   /* secondary prose, descriptions */
+  --ink-3:     #767c80;   /* metadata */
+  --ink-4:     #9ba0a3;   /* faint: IDs at rest, rail labels */
+
+  --rule:      #e2ded7;   /* hairline */
+  --rule-2:    #cfcac1;   /* stronger divider */
+
+  --signal:    #a25c14;   /* single accent — instrument amber, dark for AA */
+  --signal-bg: #f6ecdd;
+  --signal-2:  #c47a2a;
+
+  --st-active: #3f7f52;   /* status glyphs */
+  --st-draft:  #6b7a8c;
+  --st-off:    #a9a49b;
+  --st-warn:   #a25c14;
+
+  --sel:       #e4dccb;
+  --shade:     rgba(22, 24, 26, 0.045);
+}
+
+/* ── DARK ────────────────────────────────────────────────────────────────── */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground:    #0a0c0d;
+    --ground-2:  #101314;
+    --ground-3:  #191d1f;
+    --ground-in: #d8dee0;
+
+    --ink:       #d9dee0;
+    --ink-2:     #a2abae;
+    --ink-3:     #7c8689;
+    --ink-4:     #565f62;
+
+    --rule:      #1d2325;
+    --rule-2:    #2c3437;
+
+    --signal:    #e2903f;
+    --signal-bg: #241a0d;
+    --signal-2:  #f0ab63;
+
+    --st-active: #5aa06f;
+    --st-draft:  #6f8298;
+    --st-off:    #4d5558;
+    --st-warn:   #e2903f;
+
+    --sel:       #2e2718;
+    --shade:     rgba(216, 222, 224, 0.05);
+  }
+}
+
+:root[data-theme="dark"] {
+  --ground:    #0a0c0d;
+  --ground-2:  #101314;
+  --ground-3:  #191d1f;
+  --ground-in: #d8dee0;
+
+  --ink:       #d9dee0;
+  --ink-2:     #a2abae;
+  --ink-3:     #7c8689;
+  --ink-4:     #565f62;
+
+  --rule:      #1d2325;
+  --rule-2:    #2c3437;
+
+  --signal:    #e2903f;
+  --signal-bg: #241a0d;
+  --signal-2:  #f0ab63;
+
+  --st-active: #5aa06f;
+  --st-draft:  #6f8298;
+  --st-off:    #4d5558;
+  --st-warn:   #e2903f;
+
+  --sel:       #2e2718;
+  --shade:     rgba(216, 222, 224, 0.05);
+}
+
+@media (max-width: 720px) {
+  :root { --gut: 16px; --t-3xl: 30px; --t-2xl: 25px; --t-xl: 21px; }
+}

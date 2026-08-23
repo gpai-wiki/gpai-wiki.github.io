@@ -1,0 +1,5 @@
+{%- comment -%} copyable block with a copy button  ·  params: content {%- endcomment -%}
+<div class="copybox">
+  <button class="copybtn" type="button" data-copy>copy</button>
+  <pre>{{ include.content | strip | escape }}</pre>
+</div>

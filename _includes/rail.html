@@ -1,0 +1,17 @@
+<aside class="doc__rail">
+  <div class="rail__blk">
+    <div class="toc__h">Contents</div>
+    <nav id="toc" aria-label="On this page"></nav>
+  </div>
+
+  {%- if include.extra %}{{ include.extra }}{% endif %}
+
+  <div class="rail__blk">
+    <div class="toc__h">This entry</div>
+    <ul class="toc__l">
+      <li><a href="{{ site.repo_url }}/blob/main/{{ page.path }}" rel="noopener">View source</a></li>
+      <li><a href="{{ site.repo_url }}/edit/main/{{ page.path }}" rel="noopener">Suggest an edit</a></li>
+      <li><a href="{{ site.repo_url }}/issues/new?title={{ page.uid | default: page.title | uri_escape }}" rel="noopener">Raise an issue</a></li>
+    </ul>
+  </div>
+</aside>

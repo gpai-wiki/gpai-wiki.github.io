@@ -1,0 +1,29 @@
+{%- assign nav = site.data.nav | where: "key", page.section | first -%}
+<header class="dhead">
+  <div class="dhead__top">
+    {%- if nav %}<a href="{{ nav.url | relative_url }}">{{ nav.label }}</a>{% endif %}
+    {%- if page.uid %}<span class="sep">/</span><span>{{ page.uid }}</span>{% endif %}
+    {%- if page.date %}<span class="sep">·</span><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y-%m-%d" }}</time>{% endif %}
+    {%- if page.version %}<span class="sep">·</span><span>v{{ page.version }}</span>{% endif %}
+    {%- if page.status %}<span class="sep">·</span><span class="status" data-s="{{ page.status }}">{{ page.status }}</span>{% endif %}
+  </div>
+
+  <h1 class="dhead__h">{{ page.title }}</h1>
+  {%- if page.subtitle %}<p class="dhead__sub">{{ page.subtitle }}</p>{% endif %}
+
+  {%- if page.author or page.authors %}
+  <div class="dhead__by">
+    {%- if page.authors -%}
+      {{ page.authors | join: ", " }}
+    {%- else -%}
+      {{ page.author }}{% if page.handle %} (<a href="https://github.com/{{ page.handle }}" rel="noopener">@{{ page.handle }}</a>){% endif %}
+    {%- endif -%}
+  </div>
+  {%- endif %}
+
+  {%- if page.tags %}
+  <div class="tags" style="margin-top:14px">
+    {%- for t in page.tags %}<a class="tag" href="{{ '/tags/' | relative_url }}#{{ t | slugify }}">{{ t }}</a>{% endfor -%}
+  </div>
+  {%- endif %}
+</header>

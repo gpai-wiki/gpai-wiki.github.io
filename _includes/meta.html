@@ -1,0 +1,4 @@
+{%- comment -%} one label/value row inside a .meta block  ·  params: k, v {%- endcomment -%}
+{%- if include.v and include.v != "" -%}
+<div class="meta__r"><div class="meta__k">{{ include.k }}</div><div class="meta__v">{{ include.v }}</div></div>
+{%- endif -%}

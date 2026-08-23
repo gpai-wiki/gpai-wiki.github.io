@@ -1,0 +1,12 @@
+---
+layout: index-section
+section: log
+kicker: Change log
+title: What changed
+subtitle: Accepted pull requests, new entries, and notes on how the archive is run.
+---
+{% if site.posts.size > 0 %}
+<ul class="rows">{% for p in site.posts %}{% include row.html doc=p tight=true %}{% endfor %}</ul>
+{% else %}
+<div class="empty">no entries yet</div>
+{% endif %}

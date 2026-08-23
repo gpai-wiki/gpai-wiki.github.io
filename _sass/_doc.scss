@@ -1,0 +1,163 @@
+/* ═══ document furniture: title block, meta bar, rail, backlinks ═══════════ */
+
+.dhead { padding-block: var(--sp-6) var(--sp-5); }
+.dhead__top {
+  display: flex; flex-wrap: wrap; align-items: center;
+  gap: var(--sp-2) var(--sp-4);
+  margin-bottom: var(--sp-4);
+  font-family: var(--f-mono); font-size: var(--t-xs);
+  color: var(--ink-4);
+}
+.dhead__top .sep { color: var(--rule-2); }
+.dhead__h {
+  font-size: var(--t-2xl);
+  font-weight: 600;
+  letter-spacing: var(--track-tight);
+  line-height: 1.13;
+  max-width: 24ch;
+  text-wrap: balance;
+}
+.dhead__sub {
+  margin-top: var(--sp-4);
+  max-width: var(--measure);
+  font-family: var(--f-text);
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink-2);
+}
+.dhead__by {
+  margin-top: var(--sp-4);
+  font-size: var(--t-base);
+  color: var(--ink-2);
+}
+.dhead__by a { text-decoration: underline; text-decoration-color: var(--rule-2);
+                text-underline-offset: 0.18em; }
+.dhead__by a:hover { color: var(--signal); }
+
+/* the meta bar — label/value rows in mono, bordered. Instrument signature. */
+.meta {
+  border: 1px solid var(--rule);
+  background: var(--ground-2);
+  margin-block: var(--sp-5);
+  font-size: var(--t-sm);
+}
+.meta__r {
+  display: grid;
+  grid-template-columns: 116px minmax(0, 1fr);
+  gap: var(--sp-4);
+  padding: 8px 13px;
+  border-bottom: 1px solid var(--rule);
+}
+.meta__r:last-child { border-bottom: 0; }
+.meta__k {
+  font-family: var(--f-mono); font-size: var(--t-2xs);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--ink-4); padding-top: 2px;
+}
+.meta__v { min-width: 0; word-break: break-word; color: var(--ink-2); }
+.meta__v a { text-decoration: underline; text-decoration-color: var(--rule-2);
+             text-underline-offset: 0.15em; }
+.meta__v a:hover { color: var(--signal); }
+@media (max-width: 560px) {
+  .meta__r { grid-template-columns: 1fr; gap: 2px; }
+}
+
+/* copyable block: bibtex, citation, install line */
+.copybox { position: relative; margin-block: var(--sp-4); }
+.copybox pre {
+  border: 1px solid var(--rule); background: var(--ground-2);
+  padding: var(--sp-4); overflow-x: auto;
+  font-family: var(--f-mono); font-size: var(--t-xs); line-height: 1.6;
+  color: var(--ink-2); margin: 0;
+}
+.copybtn {
+  position: absolute; top: 6px; right: 6px;
+  font-family: var(--f-mono); font-size: var(--t-2xs);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--ink-4); background: var(--ground-2);
+  border: 1px solid var(--rule); padding: 3px 7px;
+  transition: all var(--dur) var(--ease);
+}
+.copybtn:hover { color: var(--signal); border-color: var(--signal); }
+
+/* ── rail: table of contents ─────────────────────────────────────────────── */
+.toc__h {
+  font-family: var(--f-mono); font-size: var(--t-2xs);
+  letter-spacing: var(--track-label); text-transform: uppercase;
+  color: var(--ink-4);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: var(--sp-3);
+}
+.toc__l { list-style: none; padding: 0; margin: 0; display: grid; gap: 1px; }
+.toc__l a {
+  display: block;
+  padding: 4px 0 4px 10px;
+  border-left: 1px solid var(--rule);
+  font-size: var(--t-sm);
+  line-height: 1.35;
+  color: var(--ink-3);
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.toc__l a:hover { color: var(--ink); }
+.toc__l a.on { color: var(--signal); border-left-color: var(--signal); }
+.toc__l li[data-lv="3"] a { padding-left: 22px; font-size: var(--t-xs); }
+.toc__l li[data-lv="4"] a { padding-left: 34px; font-size: var(--t-xs); color: var(--ink-4); }
+
+.rail__blk { margin-bottom: var(--sp-6); }
+.rail__blk:last-child { margin-bottom: 0; }
+
+/* ── prev/next + related ─────────────────────────────────────────────────── */
+.pager {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--rule); border: 1px solid var(--rule);
+  margin-top: var(--sp-8);
+}
+.pager__a { background: var(--ground); padding: var(--sp-4);
+            transition: background var(--dur) var(--ease); }
+.pager__a:hover { background: var(--shade); }
+.pager__a:hover .pager__t { color: var(--signal); }
+.pager__a--n { text-align: right; }
+.pager__k { font-family: var(--f-mono); font-size: var(--t-2xs);
+            letter-spacing: var(--track-label); text-transform: uppercase;
+            color: var(--ink-4); margin-bottom: 5px; }
+.pager__t { font-size: var(--t-sm); font-weight: 500; line-height: 1.35;
+            transition: color var(--dur) var(--ease); }
+@media (max-width: 620px) { .pager { grid-template-columns: 1fr; }
+                            .pager__a--n { text-align: left; } }
+
+/* ── contributor page frame ──────────────────────────────────────────────── */
+.userpage {
+  border: 1px solid var(--rule-2);
+  margin-block: var(--sp-5) var(--sp-8);
+}
+.userpage__strip {
+  display: flex; flex-wrap: wrap; align-items: center; gap: var(--sp-2) var(--sp-4);
+  padding: 7px 14px;
+  background: var(--ground-2);
+  border-bottom: 1px solid var(--rule-2);
+  font-family: var(--f-mono); font-size: var(--t-2xs);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--ink-4);
+}
+.userpage__strip b { color: var(--ink-2); font-weight: 500; }
+.userpage__body { padding: var(--sp-6) var(--sp-6) var(--sp-7); }
+@media (max-width: 620px) { .userpage__body { padding: var(--sp-5) var(--sp-4); } }
+
+/* ── tag directory ───────────────────────────────────────────────────────── */
+.tagcloud { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3);
+            padding-block: var(--sp-4); }
+.tagcloud a {
+  font-family: var(--f-mono); font-size: var(--t-sm);
+  border: 1px solid var(--rule); padding: 4px 9px; color: var(--ink-2);
+  transition: all var(--dur) var(--ease);
+}
+.tagcloud a:hover { border-color: var(--signal); color: var(--signal); }
+.tagcloud a span { color: var(--ink-4); margin-left: 6px;
+                   font-variant-numeric: tabular-nums; }
+
+/* the article body always clears the lead paragraph above it */
+.doc__body > article.prose { margin-top: var(--sp-6); }
+
+/* the contributor frame hugs the document measure rather than the whole shell */
+.userpage { max-width: calc(var(--measure) + 2 * var(--sp-6)); }

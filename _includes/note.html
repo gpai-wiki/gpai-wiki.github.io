@@ -1,0 +1,5 @@
+{%- comment -%} callout  ·  params: label, kind (warn | quiet | omitted), content (capture markdown first) {%- endcomment -%}
+<aside class="note"{% if include.kind %} data-k="{{ include.kind }}"{% endif %}>
+  {%- if include.label %}<div class="note__l">{{ include.label }}</div>{% endif %}
+  {{ include.content | markdownify }}
+</aside>

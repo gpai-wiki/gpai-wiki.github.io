@@ -1,0 +1,27 @@
+---
+layout: index-section
+section: roadmaps
+kicker: Roadmaps &amp; proposals
+title: How to get there
+subtitle: >-
+  Long-form, opinionated, signed documents. Hosting a roadmap here is not an
+  endorsement of it — it means the argument is specific enough to be wrong.
+---
+{% assign order = "active,draft,proposed,contested,superseded,archived" | split: "," %}
+{% for s in order %}
+  {% assign group = site.roadmaps | where: "status", s | sort: "date" | reverse %}
+  {% if group.size > 0 %}
+  <section class="block">
+    {% include rhead.html label=s n=group.size %}
+    <ul class="rows">{% for d in group %}{% include row.html doc=d %}{% endfor %}</ul>
+  </section>
+  {% endif %}
+{% endfor %}
+
+{% assign untyped = site.roadmaps | where_exp: "d", "d.status == nil" %}
+{% if untyped.size > 0 %}
+<section class="block">
+  {% include rhead.html label="unclassified" n=untyped.size %}
+  <ul class="rows">{% for d in untyped %}{% include row.html doc=d %}{% endfor %}</ul>
+</section>
+{% endif %}

@@ -1,0 +1,61 @@
+---
+layout: index-section
+section: papers
+kicker: Research index
+title: Papers
+subtitle: >-
+  Curated and annotated. Each entry states, in plain language, what the result is
+  and why it moves general-purpose capability — not just benchmark numbers.
+---
+{% assign docs = site.papers | sort: "date" | reverse %}
+{% assign tags = "" | split: "" %}
+{% for d in docs %}{% for t in d.tags %}{% assign tags = tags | push: t %}{% endfor %}{% endfor %}
+{% assign tags = tags | uniq | sort %}
+
+<div class="tools">
+  <label class="field">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4 14 14"/></svg>
+    <input type="search" id="q" placeholder="filter by title, author, venue…" autocomplete="off" aria-label="Filter papers">
+  </label>
+  <div class="tools__grp">
+    <span class="label">sort</span>
+    <button class="chip" data-sort="date" aria-pressed="true">date</button>
+    <button class="chip" data-sort="title" aria-pressed="false">title</button>
+    <button class="chip" data-sort="uid" aria-pressed="false">id</button>
+  </div>
+  <span class="count" id="n"></span>
+</div>
+
+{% if tags.size > 0 %}
+<div class="tools" style="border-bottom:0;padding-top:0">
+  <div class="tools__grp" style="flex-wrap:wrap">
+    <span class="label">tags</span>
+    {% for t in tags %}<button class="chip" data-tag="{{ t | slugify }}" aria-pressed="false">{{ t }}</button>{% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<ul class="rows" data-index>
+  {%- for d in docs -%}
+  {%- capture srch %}{{ d.title }} {{ d.authors | join: ' ' }} {{ d.venue }} {{ d.uid }} {{ d.summary }}{% endcapture -%}
+  {%- capture tg %}{% for t in d.tags %}{{ t | slugify }} {% endfor %}{% endcapture -%}
+  <li data-search="{{ srch | strip_html | escape }}" data-tags="{{ tg | strip }}"
+      data-date="{{ d.date | date: '%Y-%m-%d' }}" data-title="{{ d.title | slugify }}" data-uid="{{ d.uid }}">
+    <a class="row" href="{{ d.url | relative_url }}">
+      <span class="row__uid">{{ d.uid }}</span>
+      <span class="row__date">{{ d.date | date: "%Y-%m-%d" }}</span>
+      <span class="row__main">
+        <span class="row__t">{{ d.title | escape }}</span>
+        <span class="row__by">{{ d.authors | join: ", " }}{% if d.venue %} · {{ d.venue }}{% endif %}</span>
+        {% if d.summary %}<span class="row__d">{{ d.summary | strip_html }}</span>{% endif %}
+        <span class="row__mdate">{{ d.date | date: "%Y-%m-%d" }} · {{ d.uid }}</span>
+      </span>
+      <span class="row__end">
+        {%- if d.tags %}<span class="tag">{{ d.tags | first }}</span>
+        {%- if d.tags.size > 1 %}<span class="row__more">+{{ d.tags.size | minus: 1 }}</span>{% endif %}{% endif -%}
+      </span>
+    </a>
+  </li>
+  {%- endfor -%}
+</ul>
+<div class="empty" id="empty" hidden>no entries match that filter</div>

@@ -1,0 +1,7 @@
+- { label: papers,        url: /papers/,         key: papers }
+- { label: roadmaps,      url: /roadmaps/,       key: roadmaps }
+- { label: systems,       url: /systems/,        key: systems }
+- { label: wiki,          url: /wiki/,           key: wiki }
+- { label: open problems, url: /open-problems/,  key: open-problems }
+- { label: pages,         url: /pages/,          key: pages }
+- { label: contribute,    url: /contribute/,     key: contribute }

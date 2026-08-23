@@ -1,0 +1,15 @@
+---
+layout: index-section
+section: systems
+kicker: Implementations
+title: Things that run
+subtitle: >-
+  Code, benchmarks and reproductions. An entry belongs here when a claim
+  has been turned into something a stranger can execute.
+---
+{% assign docs = site.systems | sort: "date" | reverse %}
+{% if docs.size > 0 %}
+<ul class="rows">{% for d in docs %}{% include row.html doc=d %}{% endfor %}</ul>
+{% else %}
+<div class="empty">nothing here yet — <a class="tlink" href="{{ '/contribute/' | relative_url }}">add the first entry</a></div>
+{% endif %}
