@@ -1,4 +1,4 @@
-/* ── shell ───────────────────────────────────────────────────────────────── */
+/* -- shell ----------------------------------------------------------------- */
 .shell {
   width: 100%;
   max-width: var(--shell);
@@ -9,7 +9,7 @@
 
 .main { flex: 1 0 auto; padding-bottom: var(--sp-9); }
 
-/* ── top bar ─────────────────────────────────────────────────────────────── */
+/* -- top bar --------------------------------------------------------------- */
 .bar {
   position: sticky;
   top: 0;
@@ -79,7 +79,7 @@
 .iconbtn:hover { color: var(--ink); border-color: var(--rule); }
 .iconbtn svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.4; }
 
-/* ── rule head:  LABEL ─────────────────────────── 142 ───────────────────── */
+/* -- rule head:  LABEL --------------------------- 142 --------------------- */
 .rhead {
   display: flex;
   align-items: center;
@@ -110,7 +110,7 @@ a.rhead__l:hover { color: var(--signal); }
   white-space: nowrap;
 }
 
-/* ── page header ─────────────────────────────────────────────────────────── */
+/* -- page header ----------------------------------------------------------- */
 .phead {
   padding: var(--sp-7) 0 var(--sp-5);
   border-bottom: 1px solid var(--rule);
@@ -137,7 +137,7 @@ a.rhead__l:hover { color: var(--signal); }
   line-height: 1.55;
 }
 
-/* ── generic column grids ────────────────────────────────────────────────── */
+/* -- generic column grids -------------------------------------------------- */
 .cols-2 {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -150,7 +150,7 @@ a.rhead__l:hover { color: var(--signal); }
 }
 @media (max-width: 900px) { .cols-2, .cols-3 { grid-template-columns: 1fr; gap: var(--sp-6); } }
 
-/* ── article shell: content + sticky rail ────────────────────────────────── */
+/* -- article shell: content + sticky rail ---------------------------------- */
 .doc {
   display: grid;
   grid-template-columns: minmax(0, var(--measure)) 210px;
@@ -173,7 +173,7 @@ a.rhead__l:hover { color: var(--signal); }
   .doc__rail { position: static; max-height: none; order: -1; }
 }
 
-/* ── footer ──────────────────────────────────────────────────────────────── */
+/* -- footer ---------------------------------------------------------------- */
 .foot {
   border-top: 1px solid var(--rule);
   padding: var(--sp-6) 0 var(--sp-7);
@@ -203,7 +203,7 @@ a.rhead__l:hover { color: var(--signal); }
   color: var(--ink-4);
 }
 
-/* ── narrow bar: the section list scrolls, and says so ───────────────────── */
+/* -- narrow bar: the section list scrolls, and says so --------------------- */
 @media (max-width: 820px) {
   .bar__in { gap: var(--sp-3); }
   .nav {

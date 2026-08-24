@@ -1,7 +1,7 @@
-/* ═══ index rows — the workhorse of every section listing ══════════════════
+/* === index rows -- the workhorse of every section listing ==================
    Rows respond to the width of their column, not the viewport, so the same
    markup works in a narrow home-page rail and in a full-width section index.
-   ═════════════════════════════════════════════════════════════════════════ */
+   ========================================================================= */
 
 .rows {
   container-type: inline-size;
@@ -94,7 +94,7 @@
   margin-top: 5px;
 }
 
-/* ── medium column: id + date get their own gutters ──────────────────────── */
+/* -- medium column: id + date get their own gutters ------------------------ */
 @container (min-width: 460px) {
   .row {
     grid-template-columns: 64px 92px minmax(0, 1fr);
@@ -104,7 +104,7 @@
   .row__mdate { display: none; }
 }
 
-/* ── wide column: the full four-track instrument row ─────────────────────── */
+/* -- wide column: the full four-track instrument row ----------------------- */
 @container (min-width: 700px) {
   .row {
     grid-template-columns: 64px 92px minmax(0, 1fr) minmax(0, 180px);
@@ -145,7 +145,7 @@
   }
 }
 
-/* two-column variant: concepts / glossary — term left, definition right.
+/* two-column variant: concepts / glossary -- term left, definition right.
    Declared after the .row container rules so it overrides their tracks. */
 .row--term {
   grid-template-columns: minmax(0, 1fr);
@@ -154,7 +154,7 @@
 }
 .row__def { grid-area: def; min-width: 0; }
 .row__def .row__d { margin-top: 0; }
-/* the alternative names are an identifier, not metadata — let them wrap */
+/* the alternative names are an identifier, not metadata -- let them wrap */
 .row--term .row__by { white-space: normal; overflow: visible; text-overflow: clip; }
 
 @container (min-width: 560px) {
@@ -166,7 +166,7 @@
   }
 }
 
-/* ── toolbar: sort + filter above an index ───────────────────────────────── */
+/* -- toolbar: sort + filter above an index --------------------------------- */
 .tools {
   display: flex;
   flex-wrap: wrap;
@@ -232,7 +232,7 @@
   color: var(--ink-4);
 }
 
-/* ── home: three-column dense front page ─────────────────────────────────── */
+/* -- home: three-column dense front page ----------------------------------- */
 .hero {
   padding: var(--sp-8) 0 var(--sp-7);
   border-bottom: 1px solid var(--rule);

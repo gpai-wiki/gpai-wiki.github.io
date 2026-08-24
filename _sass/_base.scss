@@ -1,4 +1,4 @@
-/* ── reset ───────────────────────────────────────────────────────────────── */
+/* -- reset ----------------------------------------------------------------- */
 *, *::before, *::after { box-sizing: border-box; }
 * { margin: 0; }
 
@@ -54,9 +54,9 @@ hr {
   margin: var(--sp-6) 0;
 }
 
-/* ── shared primitives ───────────────────────────────────────────────────── */
+/* -- shared primitives ----------------------------------------------------- */
 
-/* Uppercase tracked mono label — the site's connective tissue */
+/* Uppercase tracked mono label -- the site's connective tissue */
 .label {
   font-family: var(--f-mono);
   font-size: var(--t-2xs);
@@ -109,7 +109,7 @@ hr {
 .status[data-s="contested"]::before,
 .status[data-s="unverified"]::before   { background: var(--st-warn); }
 
-/* Tag — bracketed text, not a coloured pill */
+/* Tag -- bracketed text, not a coloured pill */
 .tag {
   font-family: var(--f-mono);
   font-size: var(--t-xs);

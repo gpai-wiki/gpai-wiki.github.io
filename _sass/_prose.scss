@@ -1,6 +1,6 @@
-/* ═══ long-form reading mode ═══════════════════════════════════════════════
+/* === long-form reading mode ===============================================
    The one place on the site that relaxes: serif, wide leading, real measure.
-   ═════════════════════════════════════════════════════════════════════════ */
+   ========================================================================= */
 
 .prose {
   font-family: var(--f-text);
@@ -14,7 +14,7 @@
 
 .prose p { text-wrap: pretty; }
 
-/* headings return to the grotesk — structure is UI, argument is prose */
+/* headings return to the grotesk -- structure is UI, argument is prose */
 .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
   font-family: var(--f-ui);
   letter-spacing: var(--track-tight);
@@ -37,7 +37,7 @@
 }
 .prose h2 + *, .prose h3 + *, .prose h4 + *, .prose h5 + * { margin-top: 0.6em; }
 
-/* anchor handles — invisible until hover */
+/* anchor handles -- invisible until hover */
 .prose :is(h2, h3, h4) .anchor {
   position: absolute;
   left: -0.85em;
@@ -68,7 +68,7 @@
 .prose ol { font-variant-numeric: tabular-nums; }
 .prose li > ul, .prose li > ol { margin-top: 0.34em; }
 
-/* definition lists — used heavily by the wiki */
+/* definition lists -- used heavily by the wiki */
 .prose dl { display: grid; grid-template-columns: minmax(120px, 200px) 1fr;
             gap: 0.5em var(--sp-5); }
 .prose dt { font-family: var(--f-mono); font-size: var(--t-sm);
@@ -89,7 +89,7 @@
   font-family: var(--f-mono); font-size: var(--t-sm); color: var(--ink-3);
 }
 
-/* callout — one restrained box, no icon soup */
+/* callout -- one restrained box, no icon soup */
 .note {
   border: 1px solid var(--rule);
   border-left: 2px solid var(--signal);
@@ -108,7 +108,7 @@
 .note[data-k="quiet"] { border-left-color: var(--rule-2); }
 .note[data-k="quiet"] .note__l { color: var(--ink-3); }
 
-/* ── tables ──────────────────────────────────────────────────────────────── */
+/* -- tables ---------------------------------------------------------------- */
 .tablewrap {
   overflow-x: auto;
   border: 1px solid var(--rule);
@@ -149,7 +149,7 @@
   font-family: var(--f-ui); font-size: var(--t-sm); color: var(--ink-3);
 }
 
-/* ── figures & media ─────────────────────────────────────────────────────── */
+/* -- figures & media ------------------------------------------------------- */
 .fig { margin-block: var(--sp-6); }
 .fig__frame {
   border: 1px solid var(--rule);
@@ -198,7 +198,7 @@
   color: var(--ink-3); margin-bottom: var(--sp-2);
 }
 
-/* ── footnotes ───────────────────────────────────────────────────────────── */
+/* -- footnotes ------------------------------------------------------------- */
 .prose .footnotes {
   margin-top: var(--sp-8);
   padding-top: var(--sp-4);
@@ -213,7 +213,7 @@
   color: var(--signal); padding-inline: 1px;
 }
 
-/* ── keyboard / inline marks ─────────────────────────────────────────────── */
+/* -- keyboard / inline marks ----------------------------------------------- */
 .prose kbd {
   font-family: var(--f-mono); font-size: 0.82em;
   border: 1px solid var(--rule-2); border-bottom-width: 2px;

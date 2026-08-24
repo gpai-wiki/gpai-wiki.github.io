@@ -1,11 +1,16 @@
 ---
-# main stylesheet — INSTRUMENT
+# main stylesheet - INSTRUMENT
+#
+# @import rather than @use, and ASCII-only source, so this compiles under BOTH
+# builders: dart-sass via the Actions workflow, and Ruby Sass 3.7 via the
+# legacy GitHub Pages build. The partials share no Sass variables or mixins
+# (everything is CSS custom properties), so the two are equivalent here.
 ---
-@use "tokens";
-@use "base";
-@use "layout";
-@use "index";
-@use "prose";
-@use "doc";
-@use "code";
-@use "math";
+@import "tokens";
+@import "base";
+@import "layout";
+@import "index";
+@import "prose";
+@import "doc";
+@import "code";
+@import "math";

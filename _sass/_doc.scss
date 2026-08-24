@@ -1,4 +1,4 @@
-/* ═══ document furniture: title block, meta bar, rail, backlinks ═══════════ */
+/* === document furniture: title block, meta bar, rail, backlinks =========== */
 
 .dhead { padding-block: var(--sp-6) var(--sp-5); }
 .dhead__top {
@@ -34,7 +34,7 @@
                 text-underline-offset: 0.18em; }
 .dhead__by a:hover { color: var(--signal); }
 
-/* the meta bar — label/value rows in mono, bordered. Instrument signature. */
+/* the meta bar -- label/value rows in mono, bordered. Instrument signature. */
 .meta {
   border: 1px solid var(--rule);
   background: var(--ground-2);
@@ -80,7 +80,7 @@
 }
 .copybtn:hover { color: var(--signal); border-color: var(--signal); }
 
-/* ── rail: table of contents ─────────────────────────────────────────────── */
+/* -- rail: table of contents ----------------------------------------------- */
 .toc__h {
   font-family: var(--f-mono); font-size: var(--t-2xs);
   letter-spacing: var(--track-label); text-transform: uppercase;
@@ -107,7 +107,7 @@
 .rail__blk { margin-bottom: var(--sp-6); }
 .rail__blk:last-child { margin-bottom: 0; }
 
-/* ── prev/next + related ─────────────────────────────────────────────────── */
+/* -- prev/next + related --------------------------------------------------- */
 .pager {
   display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
   background: var(--rule); border: 1px solid var(--rule);
@@ -126,7 +126,7 @@
 @media (max-width: 620px) { .pager { grid-template-columns: 1fr; }
                             .pager__a--n { text-align: left; } }
 
-/* ── contributor page frame ──────────────────────────────────────────────── */
+/* -- contributor page frame ------------------------------------------------ */
 .userpage {
   border: 1px solid var(--rule-2);
   margin-block: var(--sp-5) var(--sp-8);
@@ -144,7 +144,7 @@
 .userpage__body { padding: var(--sp-6) var(--sp-6) var(--sp-7); }
 @media (max-width: 620px) { .userpage__body { padding: var(--sp-5) var(--sp-4); } }
 
-/* ── tag directory ───────────────────────────────────────────────────────── */
+/* -- tag directory --------------------------------------------------------- */
 .tagcloud { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-3);
             padding-block: var(--sp-4); }
 .tagcloud a {

@@ -29,12 +29,19 @@ everything else live-reloads.
 ## Deployment
 
 GitHub Actions builds the site with **Jekyll 4** and publishes it to GitHub Pages
-(`.github/workflows/pages.yml`). This is deliberate: the built-in GitHub Pages
-build is pinned to Jekyll 3.9 and disallows custom plugins, which would rule out
-the collection layouts and includes this site uses.
+(`.github/workflows/pages.yml`).
 
-One-time setup on a fresh repository: **Settings → Pages → Build and deployment →
-Source: GitHub Actions**.
+**Set Settings -> Pages -> Build and deployment -> Source: GitHub Actions.** While the
+source is left on the default branch-based setting, GitHub *also* runs its built-in
+`pages-build-deployment` on every push, and the two deployments race — whichever finishes
+last is what visitors get. Setting the source to GitHub Actions stops the built-in builder
+from running at all.
+
+The stylesheet is deliberately written to compile under either builder: `@import` rather
+than `@use`, and ASCII-only sources, so Ruby Sass 3.7 (used by the legacy Jekyll 3.9 build)
+produces the same 330 rules as dart-sass. That is a safety net, not the intended path --
+dart-sass warns that `@import` is deprecated, and the legacy builder cannot run custom
+plugins if this site ever needs one.
 
 ## Contributing
 

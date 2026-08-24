@@ -1,4 +1,4 @@
-/* ═══ code ════════════════════════════════════════════════════════════════ */
+/* === code ================================================================ */
 
 :root {
   --c-cmt:  #949a9e;  --c-key:  #16181a;  --c-str:  #8a5214;
@@ -64,7 +64,7 @@ code {
 }
 .highlighter-rouge pre code { background: none; border: 0; padding: 0; font-size: inherit; }
 
-/* rouge tokens — two hues and weight, nothing more */
+/* rouge tokens -- two hues and weight, nothing more */
 .highlight {
   .c, .c1, .cm, .cs, .cd, .cp, .cpf { color: var(--c-cmt); font-style: italic; }
   .k, .kc, .kd, .kn, .kp, .kr, .kv  { color: var(--c-key); font-weight: 600; }

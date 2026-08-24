@@ -1,10 +1,10 @@
-/* ═══════════════════════════════════════════════════════════════════════════
-   INSTRUMENT — design tokens
+/* ===========================================================================
+   INSTRUMENT -- design tokens
    Near-zero colour. Hairlines instead of shadows. Zero radius. One signal.
-   ═══════════════════════════════════════════════════════════════════════════ */
+   =========================================================================== */
 
 :root {
-  /* — type families —————————————————————————————————————————————— */
+  /* -- type families -------------------------------------------------------------------------------------------- */
   --f-ui:   "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
             "Helvetica Neue", Arial, sans-serif;
   --f-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo,
@@ -12,7 +12,7 @@
   --f-text: "Source Serif 4", "Iowan Old Style", Charter, Georgia,
             "Times New Roman", serif;
 
-  /* — type scale (compact) ——————————————————————————————————————— */
+  /* -- type scale (compact) ------------------------------------------------------------------------------ */
   --t-2xs: 10.5px;   /* rail labels */
   --t-xs:  11.5px;   /* tags, footnotes */
   --t-sm:  12.5px;   /* metadata, IDs, dates */
@@ -30,7 +30,7 @@
   --track-label: 0.09em;   /* uppercase mono labels */
   --track-tight: -0.011em; /* large grotesk headings */
 
-  /* — measure & rhythm ——————————————————————————————————————————— */
+  /* -- measure & rhythm -------------------------------------------------------------------------------------- */
   --measure: 42rem;   /* ~72 characters at the prose size */
   --shell:   1180px;
   --shell-wide: 1420px;
@@ -42,12 +42,12 @@
 
   --radius: 0;   /* deliberate: nothing on this site is rounded */
 
-  /* — motion ————————————————————————————————————————————————————— */
+  /* -- motion ---------------------------------------------------------------------------------------------------------- */
   --ease: cubic-bezier(0.2, 0, 0, 1);
   --dur:  110ms;
 }
 
-/* ── LIGHT (default) ─────────────────────────────────────────────────────── */
+/* -- LIGHT (default) ------------------------------------------------------- */
 :root {
   --ground:    #fbfaf8;   /* warm paper, not white */
   --ground-2:  #f3f1ed;   /* raised: meta bars, code */
@@ -62,7 +62,7 @@
   --rule:      #e2ded7;   /* hairline */
   --rule-2:    #cfcac1;   /* stronger divider */
 
-  --signal:    #a25c14;   /* single accent — instrument amber, dark for AA */
+  --signal:    #a25c14;   /* single accent -- instrument amber, dark for AA */
   --signal-bg: #f6ecdd;
   --signal-2:  #c47a2a;
 
@@ -75,7 +75,7 @@
   --shade:     rgba(22, 24, 26, 0.045);
 }
 
-/* ── DARK ────────────────────────────────────────────────────────────────── */
+/* -- DARK ------------------------------------------------------------------ */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --ground:    #0a0c0d;
