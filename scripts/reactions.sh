@@ -3,8 +3,7 @@
 # Sync GitHub Discussions reactions into _data/reactions.yml.
 #
 #   1. ensure every published entry has a Discussion (title == the entry's URL path)
-#   2. lock new Discussions, so they take reactions but not comments
-#   3. write the reaction counts out as Jekyll data
+#   2. write the reaction counts out as Jekyll data
 #
 # Reads the entry inventory from the built _site/index.json, which already lists
 # every entry with its url, uid, title and collection.
@@ -86,7 +85,7 @@ while IFS=$'\t' read -r path title uid; do
   if jq -e --arg t "$path" 'select(.title == $t)' /tmp/discussions.jsonl >/dev/null 2>&1; then
     continue
   fi
-  body=$(printf 'Reactions for **%s** on the GPAI Wiki.\n\n%s%s\n\n_Opened automatically. Locked: react here, discuss in a pull request._' \
+  body=$(printf 'Reactions for **%s** on the GPAI Wiki.\n\n%s%s\n\n_Opened automatically as a reaction target. React here; for anything substantive, open a pull request against the entry itself._' \
                 "${title//\"/}" "$SITE_URL" "$path")
   new_id=$(gh api graphql -f repoId="$REPO_ID" -f catId="$CAT_ID" \
     -f title="$path" -f body="$body" -f query='
@@ -96,11 +95,10 @@ while IFS=$'\t' read -r path title uid; do
       }
     }' --jq '.data.createDiscussion.discussion.id')
 
-  # Locked discussions still accept reactions; they refuse new comments.
-  gh api graphql -f id="$new_id" -f query='
-    mutation($id:ID!) { lockLockable(input:{lockableId:$id}) { clientMutationId } }' >/dev/null
-
-  echo "  created + locked  $path"
+  # Deliberately NOT locked. Locking is unreliable about whether non-collaborators
+  # can still react, and if it blocks them the whole feature dies silently. The
+  # Announcement category already stops readers opening threads of their own.
+  echo "  created  $path  ($new_id)"
   created=$((created + 1))
 done < <(jq -r '.items[] | [(.url | sub("^https?://[^/]+"; "")), .title, .uid] | @tsv' "$INDEX")
 

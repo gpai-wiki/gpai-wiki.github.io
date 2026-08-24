@@ -347,9 +347,10 @@ within a few hours, when the sync job next runs.
 The number shown is **positive reactions only** — 👍, ❤️, 🎉 and 🚀. 👀, 😄, 😕 and 👎 are
 recorded and displayed in the breakdown, but do not count toward it.
 
-Those Discussions are locked. You can react to them; you cannot comment. Discussion of an
-entry belongs in a pull request against the entry itself, where it ends up attached to the
-thing being discussed and visible to whoever reads it next.
+Those Discussions exist to be reacted to. You can comment on them, but nothing you write
+there appears on this site, and nobody reading the entry will see it. Anything substantive
+belongs in a pull request against the entry itself, where it ends up attached to the thing
+being discussed and visible to whoever reads it next.
 
 {% capture c %}
 A reaction count is a measure of what readers liked, not of what is correct or important.
