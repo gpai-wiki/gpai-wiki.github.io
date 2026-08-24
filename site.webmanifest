@@ -1,0 +1,18 @@
+---
+layout: null
+permalink: /site.webmanifest
+---
+{
+  "name": {{ site.title | jsonify }},
+  "short_name": {{ site.short_title | default: site.title | jsonify }},
+  "description": {{ site.tagline | jsonify }},
+  "start_url": {{ "/" | relative_url | jsonify }},
+  "display": "browser",
+  "background_color": "#0a0c0d",
+  "theme_color": "#0a0c0d",
+  "icons": [
+    { "src": {{ "/assets/img/icon-192.png" | relative_url | jsonify }}, "sizes": "192x192", "type": "image/png" },
+    { "src": {{ "/assets/img/icon-512.png" | relative_url | jsonify }}, "sizes": "512x512", "type": "image/png" },
+    { "src": {{ "/assets/img/mark.svg"     | relative_url | jsonify }}, "sizes": "any",     "type": "image/svg+xml" }
+  ]
+}
