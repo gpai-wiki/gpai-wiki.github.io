@@ -24,6 +24,15 @@ SITE_URL="${SITE_URL:-https://gpai-wiki.github.io}"
 
 [ -f "$INDEX" ] || { echo "no $INDEX -- build the site first" >&2; exit 1; }
 
+# ---- is Discussions even switched on yet? ----------------------------------
+# Not being set up is an expected state before the one-time repo configuration,
+# not a failure -- exit clean so the scheduled run does not cry wolf every 6h.
+if [ "$(gh api "repos/$REPO" --jq .has_discussions 2>/dev/null)" != "true" ]; then
+  echo "Discussions is not enabled on $REPO -- nothing to sync."
+  echo "Enable it under Settings > General > Features, then create a '$CATEGORY' category."
+  exit 0
+fi
+
 # ---- repository + category ids ---------------------------------------------
 read -r REPO_ID CAT_ID < <(
   gh api graphql -f owner="$OWNER" -f name="$NAME" -f query='
@@ -38,8 +47,8 @@ read -r REPO_ID CAT_ID < <(
 )
 
 if [ -z "${CAT_ID:-}" ]; then
-  echo "Discussions category '$CATEGORY' not found." >&2
-  echo "Enable Discussions on $REPO and create that category first." >&2
+  echo "Discussions is enabled but there is no '$CATEGORY' category." >&2
+  echo "Create it, or change discussions.category in _config.yml." >&2
   exit 1
 fi
 
