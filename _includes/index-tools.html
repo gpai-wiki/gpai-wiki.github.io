@@ -1,0 +1,30 @@
+{%- comment -%}
+  Shared index toolbar - search, sort chips, result counter.
+
+  params:
+    sorts    csv of sort keys, e.g. "title,reactions,date". Rendered in order.
+    natural  label for the chip that restores the page's default order and any
+             groupings, e.g. "status" or "A-Z". Omit on ungrouped indexes whose
+             natural order is one of the real sort keys.
+    holder   placeholder text for the search field.
+{%- endcomment -%}
+{%- assign keys = include.sorts | default: "reactions,title" | split: "," -%}
+<div class="tools">
+  <label class="field">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4 14 14"/></svg>
+    <input type="search" id="q" placeholder="{{ include.holder | default: 'filter this index…' }}"
+           autocomplete="off" aria-label="Filter this index">
+  </label>
+  <div class="tools__grp" style="flex-wrap:wrap">
+    <span class="label">sort</span>
+    {%- if include.natural %}
+    <button class="chip" data-sort="natural" data-natural data-desc data-dir="desc" aria-pressed="true">{{ include.natural }}</button>
+    {%- endif %}
+    {%- for k in keys %}{% assign key = k | strip %}
+    <button class="chip" data-sort="{{ key }}"
+            {% if key == 'reactions' or key == 'date' %}data-desc{% endif %}
+            {% if include.natural == nil and forloop.first %}data-dir="desc" aria-pressed="true"{% else %}aria-pressed="false"{% endif %}>{{ key }}</button>
+    {%- endfor %}
+  </div>
+  <span class="count" id="n"></span>
+</div>

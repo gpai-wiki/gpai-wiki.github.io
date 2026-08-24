@@ -154,8 +154,11 @@
       s.addEventListener("click", function () {
         var key = s.getAttribute("data-sort");
         var wasActive = s.getAttribute("aria-pressed") === "true";
+        /* the chip marked data-natural restores the page's own order and its
+           groupings; it never reverses, because a reversed grouping is meaningless */
+        var isNatural = s.hasAttribute("data-natural");
         var desc = s.hasAttribute("data-desc");
-        if (wasActive) desc = s.getAttribute("data-dir") !== "desc";
+        if (wasActive && !isNatural) desc = s.getAttribute("data-dir") !== "desc";
 
         sorts.forEach(function (x) {
           if (x === s) return;
@@ -165,8 +168,7 @@
         s.setAttribute("aria-pressed", "true");
         s.setAttribute("data-dir", desc ? "desc" : "asc");
 
-        /* the natural order is already date-descending with the groupings in place */
-        if (key === "date" && desc) {
+        if (isNatural) {
           grouped = true;
           original.forEach(function (li) { idx.appendChild(li); });
         } else {

@@ -11,26 +11,36 @@ subtitle: >-
 {% assign groups = docs | group_by_exp: "d", "d.title | slice: 0 | upcase" %}
 
 {% if docs.size > 0 %}
+{% include index-tools.html natural="A-Z" sorts="reactions,title" holder="filter by term, alias, definition…" %}
+
 <div class="tagcloud" style="margin-bottom:var(--sp-5)">
   {% for g in groups %}<a href="#letter-{{ g.name | downcase }}">{{ g.name }}</a>{% endfor %}
 </div>
 
-{% for g in groups %}
-<section class="block" id="letter-{{ g.name | downcase }}" style="scroll-margin-top:calc(var(--bar-h) + 16px)">
-  {% include rhead.html label=g.name n=g.items.size %}
-  <ul class="rows">
-    {% for d in g.items %}
-    <li><a class="row row--term" href="{{ d.url | relative_url }}">
-      <span class="row__main">
-        <span class="row__t">{{ d.title | escape }}</span>
-        {% if d.aka %}<span class="row__by">{{ d.aka | join: " · " }}</span>{% endif %}
-      </span>
-      <span class="row__def"><span class="row__d">{{ d.summary | strip_html }}</span></span>
-    </a></li>
-    {% endfor %}
-  </ul>
-</section>
-{% endfor %}
+<ul class="rows" data-index>
+  {%- for g in groups -%}
+    <li class="rows__sep" data-sep id="letter-{{ g.name | downcase }}" style="scroll-margin-top:calc(var(--bar-h) + 16px)">
+      {% include rhead.html label=g.name n=g.items.size %}
+    </li>
+    {%- for d in g.items -%}
+    {%- assign rx = site.data.reactions.entries[d.url] -%}
+    {%- assign pad = rx.positive | default: 0 | prepend: "00000" | slice: -5, 5 -%}
+    {%- capture srch %}{{ d.title }} {{ d.summary }} {% if d.aka %}{{ d.aka | join: " " }}{% endif %}{% endcapture -%}
+    <li data-search="{{ srch | strip_html | normalize_whitespace | escape }}"
+        data-title="{{ d.title | slugify }}" data-reactions="{{ pad }}">
+      <a class="row row--term" href="{{ d.url | relative_url }}">
+        <span class="row__main">
+          <span class="row__t">{{ d.title | escape }}</span>
+          {% if d.aka %}<span class="row__by">{{ d.aka | join: " · " }}</span>{% endif %}
+        </span>
+        <span class="row__def"><span class="row__d">{{ d.summary | strip_html }}</span></span>
+        <span class="row__end">{% include react-count.html doc=d %}</span>
+      </a>
+    </li>
+    {%- endfor -%}
+  {%- endfor -%}
+</ul>
+<div class="empty" id="empty" hidden>no entries match that filter</div>
 {% else %}
 <div class="empty">no concepts yet</div>
 {% endif %}

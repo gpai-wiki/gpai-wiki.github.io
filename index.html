@@ -55,7 +55,10 @@ section: home
         <ul class="stack">
           {% for d in news limit: 5 %}
           <li><a class="stack__i" href="{{ d.url | relative_url }}">
-            <div class="stack__t">{{ d.title | escape }}</div>
+            <div class="stack__t">
+              <span>{{ d.title | escape }}</span>
+              {% include react-count.html doc=d %}
+            </div>
             <div class="stack__d">
               <span class="mono">{{ d.date | date: "%Y-%m-%d" }}</span>
               &nbsp;<span class="kind">{{ d.kind }}</span>
@@ -72,7 +75,10 @@ section: home
         <ul class="stack">
           {% for d in op limit: 5 %}
           <li><a class="stack__i" href="{{ d.url | relative_url }}">
-            <div class="stack__t"><span class="uid">{{ d.uid }}</span> &nbsp;{{ d.title | escape }}</div>
+            <div class="stack__t">
+              <span><span class="uid">{{ d.uid }}</span> &nbsp;{{ d.title | escape }}</span>
+              {% include react-count.html doc=d %}
+            </div>
             {% if d.summary %}<div class="stack__d">{{ d.summary | strip_html | truncate: 96 }}</div>{% endif %}
           </a></li>
           {% endfor %}

@@ -8,13 +8,20 @@ subtitle: >-
   more sharply — or close it — that is a contribution.
 ---
 {% assign order = "open,contested,solved,archived" | split: "," %}
-{% for s in order %}
-  {% assign group = site.problems | where: "status", s | sort: "uid" %}
-  {% if group.size > 0 %}
-  <section class="block">
-    {% include rhead.html label=s n=group.size %}
-    <ul class="rows">{% for d in group %}{% include row.html doc=d %}{% endfor %}</ul>
-  </section>
-  {% endif %}
-{% endfor %}
-{% if site.problems.size == 0 %}<div class="empty">no problems recorded yet</div>{% endif %}
+
+{% if site.problems.size > 0 %}
+{% include index-tools.html natural="status" sorts="reactions,uid,title" holder="filter by title, statement, id…" %}
+
+<ul class="rows" data-index>
+  {%- for s in order -%}
+    {%- assign group = site.problems | where: "status", s | sort: "uid" -%}
+    {%- if group.size > 0 -%}
+      <li class="rows__sep" data-sep>{% include rhead.html label=s n=group.size %}</li>
+      {%- for d in group %}{% include row.html doc=d %}{% endfor -%}
+    {%- endif -%}
+  {%- endfor -%}
+</ul>
+<div class="empty" id="empty" hidden>no entries match that filter</div>
+{% else %}
+<div class="empty">no problems recorded yet</div>
+{% endif %}

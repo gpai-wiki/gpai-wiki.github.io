@@ -339,8 +339,10 @@ def credit(trajectory, horizon: int) -> float:
 
 ## Reactions
 
-Every entry carries a reaction count, and each index shows it alongside the row. The counts
-come from **GitHub Discussions**: each entry has a Discussion of its own, and the "react on
+Every entry carries a reaction count, shown on the entry and beside its row in every index
+and on the front page, so you can see what has resonated without opening anything. Each
+index can also be **sorted by popularity** — grouped indexes flatten while sorted, and the
+leftmost sort chip puts the groupings back. The counts come from **GitHub Discussions**: each entry has a Discussion of its own, and the "react on
 GitHub" link at the foot of an entry takes you to it. React there and the count appears here
 within a few hours, when the sync job next runs.
 

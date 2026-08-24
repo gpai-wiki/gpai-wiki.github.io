@@ -159,8 +159,8 @@
 
 @container (min-width: 560px) {
   .row--term {
-    grid-template-columns: minmax(0, 232px) minmax(0, 1fr);
-    grid-template-areas: "main def";
+    grid-template-columns: minmax(0, 232px) minmax(0, 1fr) auto;
+    grid-template-areas: "main def end";
     column-gap: var(--sp-5);
     row-gap: 0;
   }
@@ -291,7 +291,15 @@
 .stack__i { display: block; background: var(--ground); padding: 10px 2px;
             transition: background var(--dur) var(--ease); }
 .stack__i:hover { background: var(--shade); }
-.stack__t { font-size: var(--t-sm); font-weight: 500; }
+.stack__t {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  font-size: var(--t-sm);
+  font-weight: 500;
+}
+.stack__i:hover .react { color: var(--signal); }
 .stack__i:hover .stack__t { color: var(--signal); }
 .stack__d { font-size: var(--t-xs); color: var(--ink-3); margin-top: 3px;
             line-height: 1.45; }

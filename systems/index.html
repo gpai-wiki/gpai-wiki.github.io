@@ -8,8 +8,14 @@ subtitle: >-
   has been turned into something a stranger can execute.
 ---
 {% assign docs = site.systems | sort: "date" | reverse %}
+
 {% if docs.size > 0 %}
-<ul class="rows">{% for d in docs %}{% include row.html doc=d %}{% endfor %}</ul>
+{% include index-tools.html sorts="date,reactions,title" holder="filter by title, repository, language…" %}
+
+<ul class="rows" data-index>
+  {%- for d in docs %}{% include row.html doc=d %}{% endfor -%}
+</ul>
+<div class="empty" id="empty" hidden>no entries match that filter</div>
 {% else %}
 <div class="empty">nothing here yet — <a class="tlink" href="{{ '/contribute/' | relative_url }}">add the first entry</a></div>
 {% endif %}
