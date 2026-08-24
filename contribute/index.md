@@ -21,6 +21,7 @@ open a pull request. One entry per pull request keeps review fast.
 
 | You want to add | Folder | Published at |
 |---|---|---|
+| Something that just happened | `_news/` | `/news/<slug>/` |
 | A paper worth reading | `_papers/` | `/papers/<slug>/` |
 | A roadmap or proposal | `_roadmaps/` | `/roadmaps/<slug>/` |
 | Code, a benchmark, a reproduction | `_systems/` | `/systems/<slug>/` |
@@ -43,6 +44,89 @@ normally — you are not limited to the GitHub Pages gem set.
 ## Front matter
 
 Every file starts with a YAML block. Fields marked **required** are checked in review.
+
+### News
+
+News is the one section with a **template file** in the repository. Copy it rather than
+writing front matter from scratch:
+
+```bash
+cp _news/TEMPLATE.md _news/your-item-slug.md
+```
+
+Then delete the `published: false` line at the top — it is there so the template itself
+does not appear on the site, and leaving it in is the single most common way for an item
+to silently never show up.
+
+```yaml
+---
+uid:      N-0004          # next free number; check _news/ for the highest
+title:    "Short, factual, no hype"          # required
+date:     2026-08-24      # required — when it HAPPENED, not when you filed it
+kind:     research        # required — research | release | policy | industry
+source:   https://arxiv.org/abs/0000.00000   # required — PRIMARY source
+source_label: "arXiv:0000.00000"             # short label shown in the index
+tags:     [scaling, evaluation]              # required, 1–3
+summary: >                                   # required, 2–3 sentences
+  What happened, stated plainly, then why it matters for general-purpose
+  capability.
+also:                                        # optional secondary coverage
+  - { label: "Reuters", url: "https://…" }
+related:                                     # optional links into the archive
+  - /papers/attention-is-all-you-need/
+added_by: your-github-handle
+---
+```
+
+The body is **optional**. Plenty of items need nothing beyond `summary`. Write one only
+when there is something a reader cannot get from the source at a glance: what is new
+versus incremental, which claim is load-bearing, what would have to hold for this to still
+matter in a year.
+
+#### The one rule that is stricter here than elsewhere
+
+**Every item links a primary source**: the paper, the official announcement, the actual
+legal text. A news article is not a primary source. Reporting may be cited under `also:`,
+never as the only link.
+
+That rules out, deliberately: rumours, unnamed sources, unreleased-model speculation,
+funding chatter before it is confirmed, and benchmark claims with nothing published behind
+them. If the only thing you can link is somebody's report that something is coming, it is
+not ready for `/news/` yet.
+
+Items are dated by **when the thing happened**, so filing something from last month is
+useful, not late. The index groups by month automatically.
+
+#### Categories
+
+| `kind` | What belongs |
+|---|---|
+| `research` | Results, papers, benchmarks, evaluations |
+| `release` | Model, system and dataset launches; open-weights drops; capability changes |
+| `policy` | Regulation, governance, standards, legal rulings, national strategy |
+| `industry` | Funding, acquisitions, lab formations and departures, compute deals |
+
+Most items are `research` or `release`. If an item genuinely spans two, file it under the
+one a reader would look for it in, and use `tags:` for the other.
+
+#### When an item turns out to be wrong
+
+Do not silently edit it. Add a `correction:` block, which renders a dated banner at the
+top of the item:
+
+```yaml
+correction:
+  date: 2026-09-01
+  note: "The 405B figure was total parameters, not active. Corrected."
+```
+
+The original text stays. An archive that quietly rewrites its own record is worth less
+than one that shows where it was wrong.
+
+#### News is not the change log
+
+`/news/` is the outside world. [`/log/`](/log/) is this archive's own change log —
+accepted pull requests, new entries, editorial notes. Site housekeeping goes there.
 
 ### Papers
 
@@ -261,6 +345,8 @@ Entries are accepted on four criteria:
 2. **Legible.** A competent reader outside your subfield can follow it.
 3. **Specific.** Especially for roadmaps: an argument that cannot be wrong is not useful.
 4. **Attributed.** Sources linked, prior work credited, your own work marked as your own.
+
+For [`/news/`](#news) there is a fifth, stricter criterion: a **primary source**, always.
 
 Rejections are not judgements of the work — most are "not yet legible enough" or
 "belongs on your own contributor page rather than in the archive." Either way you will get

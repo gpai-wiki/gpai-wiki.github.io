@@ -13,6 +13,7 @@ section: home
       and kept in plain text so it survives.
     </p>
     <div class="hero__meta">
+      <span><b>{{ site.news.size }}</b> news</span>
       <span><b>{{ site.papers.size }}</b> papers</span>
       <span><b>{{ site.roadmaps.size }}</b> roadmaps</span>
       <span><b>{{ site.systems.size }}</b> implementations</span>
@@ -48,6 +49,23 @@ section: home
     </div>
 
     <aside>
+      <section class="block">
+        {% assign news = site.news | sort: "date" | reverse %}
+        {% include rhead.html label="news" url="/news/" n=site.news.size %}
+        <ul class="stack">
+          {% for d in news limit: 5 %}
+          <li><a class="stack__i" href="{{ d.url | relative_url }}">
+            <div class="stack__t">{{ d.title | escape }}</div>
+            <div class="stack__d">
+              <span class="mono">{{ d.date | date: "%Y-%m-%d" }}</span>
+              &nbsp;<span class="kind">{{ d.kind }}</span>
+            </div>
+          </a></li>
+          {% endfor %}
+        </ul>
+        <a class="more" href="{{ '/news/' | relative_url }}">all news</a>
+      </section>
+
       <section class="block">
         {% assign op = site.problems | where: "status", "open" | sort: "uid" %}
         {% include rhead.html label="open problems" url="/open-problems/" n=op.size %}

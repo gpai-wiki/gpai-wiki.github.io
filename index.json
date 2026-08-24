@@ -2,7 +2,7 @@
 layout: null
 permalink: /index.json
 ---
-{%- assign all = site.papers | concat: site.roadmaps | concat: site.systems | concat: site.concepts | concat: site.problems | sort: "date" | reverse -%}
+{%- assign all = site.news | concat: site.papers | concat: site.roadmaps | concat: site.systems | concat: site.concepts | concat: site.problems | sort: "date" | reverse -%}
 {
   "name": {{ site.title | jsonify }},
   "description": {{ site.description | jsonify }},
@@ -26,6 +26,8 @@ permalink: /index.json
       "summary": {{ d.summary | default: "" | strip_html | jsonify }},
       "tags": {{ d.tags | default: empty | jsonify }},
       "status": {{ d.status | default: "" | jsonify }},
+      "kind": {{ d.kind | default: "" | jsonify }},
+      "source": {{ d.source | default: "" | jsonify }},
       "authors": {{ d.authors | default: d.author | default: empty | jsonify }}
     }{% unless forloop.last %},{% endunless %}
     {%- endfor %}

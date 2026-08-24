@@ -1,3 +1,4 @@
+- { label: news,          url: /news/,           key: news }
 - { label: papers,        url: /papers/,         key: papers }
 - { label: roadmaps,      url: /roadmaps/,       key: roadmaps }
 - { label: systems,       url: /systems/,        key: systems }

@@ -4,7 +4,7 @@ section: tags
 title: Tag directory
 subtitle: Every tag in the archive, and everything filed under it.
 ---
-{% assign all = site.papers | concat: site.roadmaps | concat: site.systems | concat: site.concepts | concat: site.problems | concat: site.posts %}
+{% assign all = site.news | concat: site.papers | concat: site.roadmaps | concat: site.systems | concat: site.concepts | concat: site.problems | concat: site.posts %}
 {% assign tags = "" | split: "" %}
 {% for d in all %}{% for t in d.tags %}{% assign tags = tags | push: t %}{% endfor %}{% endfor %}
 {% assign tags = tags | uniq | sort %}

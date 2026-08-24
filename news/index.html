@@ -1,0 +1,62 @@
+---
+layout: index-section
+section: news
+kicker: News
+title: What happened
+subtitle: >-
+  Results, releases, policy and industry moves worth recording. Every item links a
+  primary source and says in one line why it matters. Dated by when the thing happened,
+  not by when someone got round to filing it.
+---
+{% assign docs = site.news | sort: "date" | reverse %}
+{% assign kinds = "research,release,policy,industry" | split: "," %}
+
+<div class="tools">
+  <label class="field">
+    <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.6"/><path d="M10.4 10.4 14 14"/></svg>
+    <input type="search" id="q" placeholder="filter by title, source, summary…" autocomplete="off" aria-label="Filter news">
+  </label>
+  <div class="tools__grp" style="flex-wrap:wrap">
+    <span class="label">category</span>
+    {% for k in kinds %}
+      {% assign n = docs | where: "kind", k | size %}
+      {% if n > 0 %}<button class="chip" data-tag="{{ k }}" aria-pressed="false">{{ k }} <span class="dim">{{ n }}</span></button>{% endif %}
+    {% endfor %}
+  </div>
+  <span class="count" id="n"></span>
+</div>
+
+{% if docs.size > 0 %}
+{% assign months = docs | group_by_exp: "d", "d.date | date: '%Y-%m'" | sort: "name" | reverse %}
+<ul class="rows" data-index>
+  {%- for m in months -%}
+    {%- assign first = m.items | first -%}
+    <li class="rows__sep" data-sep>
+      {% capture label %}{{ first.date | date: "%B %Y" }}{% endcapture %}
+      {% include rhead.html label=label n=m.items.size %}
+    </li>
+    {%- for d in m.items -%}
+    {%- capture srch %}{{ d.title }} {{ d.summary }} {{ d.source_label }} {{ d.source }} {{ d.uid }}{% endcapture -%}
+    <li data-search="{{ srch | strip_html | escape }}" data-tags="{{ d.kind }}">
+      <a class="row" href="{{ d.url | relative_url }}">
+        <span class="row__uid">{{ d.uid }}</span>
+        <span class="row__date">{{ d.date | date: "%Y-%m-%d" }}</span>
+        <span class="row__main">
+          <span class="row__t">{{ d.title | escape }}</span>
+          {% if d.source_label %}<span class="row__by">{{ d.source_label }}</span>{% endif %}
+          {% if d.summary %}<span class="row__d">{{ d.summary | strip_html }}</span>{% endif %}
+          <span class="row__mdate">{{ d.date | date: "%Y-%m-%d" }} · {{ d.uid }}</span>
+        </span>
+        <span class="row__end">
+          {% if d.correction %}<span class="kind kind--corr">corrected</span>{% endif %}
+          <span class="kind">{{ d.kind }}</span>
+        </span>
+      </a>
+    </li>
+    {%- endfor -%}
+  {%- endfor -%}
+</ul>
+<div class="empty" id="empty" hidden>no items match that filter</div>
+{% else %}
+<div class="empty">nothing filed yet — <a class="tlink" href="{{ '/contribute/#news' | relative_url }}">add the first item</a></div>
+{% endif %}

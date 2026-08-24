@@ -102,7 +102,9 @@
     var counter = document.getElementById("n");
     var chips = Array.prototype.slice.call(document.querySelectorAll("[data-tag]"));
     var sorts = Array.prototype.slice.call(document.querySelectorAll("[data-sort]"));
-    var items = Array.prototype.slice.call(idx.querySelectorAll("li"));
+    var all = Array.prototype.slice.call(idx.children);
+    var seps = all.filter(function (li) { return li.hasAttribute("data-sep"); });
+    var items = all.filter(function (li) { return !li.hasAttribute("data-sep"); });
     var empty = document.getElementById("empty");
     var active = null;
 
@@ -115,6 +117,14 @@
         var ok = (!term || hay.indexOf(term) > -1) && (!active || tags.indexOf(active) > -1);
         li.hidden = !ok;
         if (ok) shown++;
+      });
+      /* a month heading disappears with the last item under it */
+      seps.forEach(function (sep) {
+        var any = false;
+        for (var n = sep.nextElementSibling; n && !n.hasAttribute("data-sep"); n = n.nextElementSibling) {
+          if (!n.hidden) { any = true; break; }
+        }
+        sep.hidden = !any;
       });
       if (counter) counter.textContent = shown + " / " + items.length;
       if (empty) empty.hidden = shown !== 0;

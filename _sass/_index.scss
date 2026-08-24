@@ -304,3 +304,27 @@
     grid-template-areas: "main end";
   }
 }
+
+/* ---- news: category marker + month separators --------------------------- */
+.kind {
+  font-family: var(--f-mono);
+  font-size: var(--t-2xs);
+  font-weight: 500;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+  flex: none;
+}
+.row:hover .kind { color: var(--ink-2); }
+.kind--corr { color: var(--signal); }
+
+.rows__sep {
+  padding: var(--sp-6) 0 0;
+  border-bottom: 1px solid var(--rule);
+}
+.rows__sep:first-child { padding-top: var(--sp-3); }
+.rows__sep .rhead { margin-bottom: var(--sp-2); }
+.rows__sep .rhead__l { color: var(--ink-3); }
+
+.chip .dim { color: var(--ink-4); font-variant-numeric: tabular-nums; }

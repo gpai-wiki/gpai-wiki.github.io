@@ -1,0 +1,47 @@
+---
+layout: default
+---
+<div class="shell">
+  {% include dhead.html %}
+  <div class="doc">
+    <div class="doc__body">
+
+      {%- if page.correction %}
+        {%- capture c %}{{ page.correction.note }}{% endcapture -%}
+        {%- capture l %}Correction, {{ page.correction.date | date: "%-d %B %Y" }}{% endcapture -%}
+        {% include note.html label=l kind="warn" content=c %}
+      {%- endif %}
+
+      <div class="meta">
+        {%- if page.kind %}{% capture v %}<span class="kind">{{ page.kind }}</span>{% endcapture %}{% include meta.html k="Category" v=v %}{% endif %}
+        {%- if page.source %}
+          {%- capture v %}<a href="{{ page.source }}">{{ page.source_label | default: page.source | remove: "https://" | remove: "www." | truncate: 58 }}</a>{% endcapture -%}
+          {% include meta.html k="Primary source" v=v %}
+        {%- endif %}
+        {%- if page.also %}
+          {%- capture v %}{% for l in page.also %}<a href="{{ l.url }}">{{ l.label }}</a>{% unless forloop.last %} · {% endunless %}{% endfor %}{% endcapture -%}
+          {% include meta.html k="Also reported" v=v %}
+        {%- endif %}
+        {%- if page.related %}
+          {%- capture v -%}
+            {%- for r in page.related -%}
+              {%- assign all = site.papers | concat: site.roadmaps | concat: site.systems | concat: site.concepts | concat: site.problems -%}
+              {%- assign ref = all | where: "url", r | first -%}
+              <a href="{{ r | relative_url }}">{% if ref %}{% if ref.uid %}{{ ref.uid }} — {% endif %}{{ ref.title | escape }}{% else %}{{ r }}{% endif %}</a>{% unless forloop.last %}<br>{% endunless %}
+            {%- endfor -%}
+          {%- endcapture -%}
+          {% include meta.html k="In the archive" v=v %}
+        {%- endif %}
+        {%- if page.added_by %}{% capture v %}<a href="https://github.com/{{ page.added_by }}">@{{ page.added_by }}</a>{% endcapture %}{% include meta.html k="Added by" v=v %}{% endif %}
+      </div>
+
+      {%- if page.summary %}<p class="prose lead" style="max-width:var(--measure)">{{ page.summary }}</p>{% endif %}
+
+      {%- assign body = content | strip %}
+      {%- if body != "" %}<article class="prose">{{ content }}</article>{% endif %}
+
+      {% include pager.html %}
+    </div>
+    {% include rail.html %}
+  </div>
+</div>

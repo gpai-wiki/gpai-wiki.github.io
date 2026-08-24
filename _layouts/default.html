@@ -6,7 +6,7 @@
   {% include header.html %}
   <main class="main" id="main">{{ content }}</main>
   {% include footer.html %}
-  <script defer src="{{ '/assets/js/site.js' | relative_url }}"></script>
+  <script defer src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.time | date: '%Y%m%d%H%M%S' }}"></script>
   {%- if page.math %}{% include math.html %}{% endif %}
 </body>
 </html>

@@ -8,6 +8,7 @@ stored as plain Markdown, published at **https://gpai-wiki.github.io**.
 
 | URL | Source | What it holds |
 |---|---|---|
+| `/news/` | `_news/` | Results, releases, policy and industry moves — primary source required |
 | `/papers/` | `_papers/` | Curated, annotated research entries |
 | `/roadmaps/` | `_roadmaps/` | Signed, falsifiable proposals for how to get there |
 | `/systems/` | `_systems/` | Code, benchmarks, reproductions |
@@ -45,6 +46,7 @@ plugins if this site ever needs one.
 
 ## Contributing
 
+`_news/TEMPLATE.md` is a copyable starting point for news items.
 See [`/contribute/`](https://gpai-wiki.github.io/contribute/) for the full front-matter
 schema of every section, the available includes (figures, video, audio, callouts,
 numbered equations) and the review criteria. Short version: fork, add one Markdown
