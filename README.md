@@ -44,6 +44,19 @@ produces the same 330 rules as dart-sass. That is a safety net, not the intended
 dart-sass warns that `@import` is deprecated, and the legacy builder cannot run custom
 plugins if this site ever needs one.
 
+## Reactions
+
+Each entry has a GitHub Discussion; readers react there and the counts are baked into the
+static build. `scripts/reactions.sh` opens a Discussion per entry (locked, so it takes
+reactions but not comments), reads the counts, and writes `_data/reactions.yml`;
+`.github/workflows/reactions.yml` runs it every six hours and commits any change.
+
+Nothing is fetched from the browser, so this adds **no runtime dependency** — the published
+site still touches no external host but Google Fonts.
+
+Requires Discussions enabled on the repo and a category named `Entries`
+(`discussions.category` in `_config.yml`).
+
 ## Contributing
 
 `_news/TEMPLATE.md` is a copyable starting point for news items.

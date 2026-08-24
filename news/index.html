@@ -23,6 +23,11 @@ subtitle: >-
       {% if n > 0 %}<button class="chip" data-tag="{{ k }}" aria-pressed="false">{{ k }} <span class="dim">{{ n }}</span></button>{% endif %}
     {% endfor %}
   </div>
+  <div class="tools__grp">
+    <span class="label">sort</span>
+    <button class="chip" data-sort="date" data-desc data-dir="desc" aria-pressed="true">date</button>
+    <button class="chip" data-sort="reactions" data-desc aria-pressed="false">reactions</button>
+  </div>
   <span class="count" id="n"></span>
 </div>
 
@@ -37,7 +42,10 @@ subtitle: >-
     </li>
     {%- for d in m.items -%}
     {%- capture srch %}{{ d.title }} {{ d.summary }} {{ d.source_label }} {{ d.source }} {{ d.uid }}{% endcapture -%}
-    <li data-search="{{ srch | strip_html | escape }}" data-tags="{{ d.kind }}">
+    {%- assign rx = site.data.reactions.entries[d.url] -%}
+    {%- assign pad = rx.positive | default: 0 | prepend: "00000" | slice: -5, 5 -%}
+    <li data-search="{{ srch | strip_html | escape }}" data-tags="{{ d.kind }}"
+        data-date="{{ d.date | date: '%Y-%m-%d' }}" data-reactions="{{ pad }}">
       <a class="row" href="{{ d.url | relative_url }}">
         <span class="row__uid">{{ d.uid }}</span>
         <span class="row__date">{{ d.date | date: "%Y-%m-%d" }}</span>
@@ -48,6 +56,7 @@ subtitle: >-
           <span class="row__mdate">{{ d.date | date: "%Y-%m-%d" }} · {{ d.uid }}</span>
         </span>
         <span class="row__end">
+          {%- include react-count.html doc=d -%}
           {% if d.correction %}<span class="kind kind--corr">corrected</span>{% endif %}
           <span class="kind">{{ d.kind }}</span>
         </span>

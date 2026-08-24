@@ -107,6 +107,7 @@
     var items = all.filter(function (li) { return !li.hasAttribute("data-sep"); });
     var empty = document.getElementById("empty");
     var active = null;
+    var grouped = seps.length > 0;
 
     function apply() {
       var term = (q && q.value || "").trim().toLowerCase();
@@ -120,6 +121,7 @@
       });
       /* a month heading disappears with the last item under it */
       seps.forEach(function (sep) {
+        if (!grouped) { sep.hidden = true; return; }
         var any = false;
         for (var n = sep.nextElementSibling; n && !n.hasAttribute("data-sep"); n = n.nextElementSibling) {
           if (!n.hidden) { any = true; break; }
@@ -131,6 +133,7 @@
     }
 
     if (q) q.addEventListener("input", apply);
+
     chips.forEach(function (c) {
       c.addEventListener("click", function () {
         var t = c.getAttribute("data-tag");
@@ -141,20 +144,45 @@
         apply();
       });
     });
+
+    /* Sorting. Columns declare their natural direction with data-desc; clicking
+       the already-active column reverses it. Month groupings only make sense in
+       the original date order, so any other sort flattens the list. */
+    var original = all.slice();
+
     sorts.forEach(function (s) {
       s.addEventListener("click", function () {
         var key = s.getAttribute("data-sort");
-        var dir = s.getAttribute("aria-pressed") === "true" ? 1 : -1;
-        sorts.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
-        s.setAttribute("aria-pressed", dir === -1 ? "true" : "false");
-        items.sort(function (a, b) {
-          var av = a.getAttribute("data-" + key) || "";
-          var bv = b.getAttribute("data-" + key) || "";
-          return av < bv ? dir : av > bv ? -dir : 0;
+        var wasActive = s.getAttribute("aria-pressed") === "true";
+        var desc = s.hasAttribute("data-desc");
+        if (wasActive) desc = s.getAttribute("data-dir") !== "desc";
+
+        sorts.forEach(function (x) {
+          if (x === s) return;
+          x.setAttribute("aria-pressed", "false");
+          x.removeAttribute("data-dir");
         });
-        items.forEach(function (li) { idx.appendChild(li); });
+        s.setAttribute("aria-pressed", "true");
+        s.setAttribute("data-dir", desc ? "desc" : "asc");
+
+        /* the natural order is already date-descending with the groupings in place */
+        if (key === "date" && desc) {
+          grouped = true;
+          original.forEach(function (li) { idx.appendChild(li); });
+        } else {
+          grouped = false;
+          var dir = desc ? -1 : 1;
+          items.slice().sort(function (a, b) {
+            var av = a.getAttribute("data-" + key) || "";
+            var bv = b.getAttribute("data-" + key) || "";
+            return av < bv ? -dir : av > bv ? dir : 0;
+          }).forEach(function (li) { idx.appendChild(li); });
+          seps.forEach(function (sep) { idx.appendChild(sep); });
+        }
+        apply();
       });
     });
+
     apply();
   }
 })();

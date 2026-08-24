@@ -19,9 +19,10 @@ subtitle: >-
   </label>
   <div class="tools__grp">
     <span class="label">sort</span>
-    <button class="chip" data-sort="date" aria-pressed="true">date</button>
+    <button class="chip" data-sort="date" data-desc data-dir="desc" aria-pressed="true">date</button>
     <button class="chip" data-sort="title" aria-pressed="false">title</button>
     <button class="chip" data-sort="uid" aria-pressed="false">id</button>
+    <button class="chip" data-sort="reactions" data-desc aria-pressed="false">reactions</button>
   </div>
   <span class="count" id="n"></span>
 </div>
@@ -39,8 +40,11 @@ subtitle: >-
   {%- for d in docs -%}
   {%- capture srch %}{{ d.title }} {{ d.authors | join: ' ' }} {{ d.venue }} {{ d.uid }} {{ d.summary }}{% endcapture -%}
   {%- capture tg %}{% for t in d.tags %}{{ t | slugify }} {% endfor %}{% endcapture -%}
+  {%- assign rx = site.data.reactions.entries[d.url] -%}
+  {%- assign pad = rx.positive | default: 0 | prepend: "00000" | slice: -5, 5 -%}
   <li data-search="{{ srch | strip_html | escape }}" data-tags="{{ tg | strip }}"
-      data-date="{{ d.date | date: '%Y-%m-%d' }}" data-title="{{ d.title | slugify }}" data-uid="{{ d.uid }}">
+      data-date="{{ d.date | date: '%Y-%m-%d' }}" data-title="{{ d.title | slugify }}" data-uid="{{ d.uid }}"
+      data-reactions="{{ pad }}">
     <a class="row" href="{{ d.url | relative_url }}">
       <span class="row__uid">{{ d.uid }}</span>
       <span class="row__date">{{ d.date | date: "%Y-%m-%d" }}</span>
@@ -51,6 +55,7 @@ subtitle: >-
         <span class="row__mdate">{{ d.date | date: "%Y-%m-%d" }} · {{ d.uid }}</span>
       </span>
       <span class="row__end">
+        {%- include react-count.html doc=d -%}
         {%- if d.tags %}<span class="tag">{{ d.tags | first }}</span>
         {%- if d.tags.size > 1 %}<span class="row__more">+{{ d.tags.size | minus: 1 }}</span>{% endif %}{% endif -%}
       </span>

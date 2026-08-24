@@ -44,6 +44,8 @@ layout: default
         <ul class="rows">{% for d in back %}{% include row.html doc=d tight=true %}{% endfor %}</ul>
       </section>
       {%- endif %}
+
+      {% include reactions.html %}
     </div>
     {% include rail.html %}
   </div>

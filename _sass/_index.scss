@@ -328,3 +328,16 @@
 .rows__sep .rhead__l { color: var(--ink-3); }
 
 .chip .dim { color: var(--ink-4); font-variant-numeric: tabular-nums; }
+
+/* reaction count in an index row: text only, no emoji, so indexes stay monochrome */
+.react {
+  flex: none;
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-4);
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease);
+}
+.react::before { content: "\25B4"; margin-right: 2px; }
+.row:hover .react { color: var(--signal); }

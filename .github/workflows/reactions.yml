@@ -1,0 +1,73 @@
+name: sync reactions
+
+# Pulls reaction counts out of GitHub Discussions into _data/reactions.yml and
+# commits them, so the counts are baked into the static build. The commit is
+# what makes this work under either Pages builder.
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"     # every six hours, offset off the hour
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:                      # only when the set of entries can have changed
+      - "_news/**"
+      - "_papers/**"
+      - "_roadmaps/**"
+      - "_systems/**"
+      - "_concepts/**"
+      - "_problems/**"
+      - "_profiles/**"
+
+permissions:
+  contents: write
+  discussions: write
+  actions: write                # to dispatch the deploy after committing
+
+concurrency:
+  group: reactions
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build (for the entry inventory in _site/index.json)
+        run: bundle exec jekyll build --quiet
+
+      - name: Sync discussions and fetch reactions
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: ./scripts/reactions.sh
+
+      - name: Commit if the counts changed
+        id: commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # ignore the timestamp-only diff, so quiet periods do not churn history
+          if git diff --quiet -I '^generated:' -- _data/reactions.yml; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "no change in reaction counts"
+          else
+            git add _data/reactions.yml
+            git commit -m "Update reaction counts [skip ci]"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Redeploy
+        # A GITHUB_TOKEN push does not trigger `on: push` workflows, so the
+        # Actions-based deploy has to be asked for explicitly. Harmless when
+        # Pages is on its legacy builder, which rebuilds on the push itself.
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run pages.yml --ref main || echo "deploy workflow not dispatchable; legacy builder will pick up the push"

@@ -22,6 +22,8 @@
       <span class="row__mdate">{{ d.date | date: "%Y-%m-%d" }}{% if d.uid %} · {{ d.uid }}{% endif %}</span>
     </span>
     <span class="row__end">
+      {%- comment -%} count first, so the status/tag stays pinned to the row edge {%- endcomment -%}
+      {%- include react-count.html doc=d -%}
       {%- comment -%} status outranks tags: one signal per row {%- endcomment -%}
       {%- if d.status -%}
         <span class="status" data-s="{{ d.status }}">{{ d.status }}</span>

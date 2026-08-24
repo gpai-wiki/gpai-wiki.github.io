@@ -337,6 +337,27 @@ def credit(trajectory, horizon: int) -> float:
     return sum(r * 0.99 ** t for t, r in enumerate(trajectory[:horizon]))
 ```
 
+## Reactions
+
+Every entry carries a reaction count, and each index shows it alongside the row. The counts
+come from **GitHub Discussions**: each entry has a Discussion of its own, and the "react on
+GitHub" link at the foot of an entry takes you to it. React there and the count appears here
+within a few hours, when the sync job next runs.
+
+The number shown is **positive reactions only** — 👍, ❤️, 🎉 and 🚀. 👀, 😄, 😕 and 👎 are
+recorded and displayed in the breakdown, but do not count toward it.
+
+Those Discussions are locked. You can react to them; you cannot comment. Discussion of an
+entry belongs in a pull request against the entry itself, where it ends up attached to the
+thing being discussed and visible to whoever reads it next.
+
+{% capture c %}
+A reaction count is a measure of what readers liked, not of what is correct or important.
+Indexes stay in date order by default and reactions are an optional sort, deliberately.
+Nothing is accepted, rejected or promoted on the strength of its count.
+{% endcapture %}
+{% include note.html label="What reactions are not" kind="quiet" content=c %}
+
 ## How pull requests are reviewed
 
 Entries are accepted on four criteria:

@@ -109,6 +109,12 @@
 .note[data-k="quiet"] .note__l { color: var(--ink-3); }
 
 /* -- tables ---------------------------------------------------------------- */
+/* Tables scroll from first paint, before site.js wraps them. Without this a wide
+   table widens the mobile layout viewport during the pre-JS layout and the page
+   scrolls sideways. Once wrapped, the table goes back to being a real table. */
+.prose > table { display: block; overflow-x: auto; max-width: 100%; }
+.tablewrap > table { display: table; }
+
 .tablewrap {
   overflow-x: auto;
   border: 1px solid var(--rule);

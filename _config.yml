@@ -11,6 +11,12 @@ lang:        en
 repository:  gpai-wiki/gpai-wiki.github.io
 repo_url:    "https://github.com/gpai-wiki/gpai-wiki.github.io"
 
+# Reactions live in this repo's GitHub Discussions. Counts are fetched at build
+# time into _data/reactions.yml (see scripts/reactions.sh); nothing is fetched
+# from the browser, so the published site gains no runtime dependency.
+discussions:
+  category: Entries
+
 # ─── build ───────────────────────────────────────────────────────────────────
 markdown:    kramdown
 highlighter: rouge

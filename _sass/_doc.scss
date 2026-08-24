@@ -161,3 +161,38 @@
 
 /* the contributor frame hugs the document measure rather than the whole shell */
 .userpage { max-width: calc(var(--measure) + 2 * var(--sp-6)); }
+
+/* ---- reactions ---------------------------------------------------------- */
+.rx { margin-top: var(--sp-8); }
+.rx__row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--sp-3) var(--sp-5);
+  padding-top: var(--sp-1);
+}
+.rx__set { display: flex; flex-wrap: wrap; gap: var(--sp-2) var(--sp-4); }
+.rx__r {
+  font-family: var(--f-mono);
+  font-size: var(--t-sm);
+  font-variant-numeric: tabular-nums;
+  color: var(--ink-2);
+  white-space: nowrap;
+}
+.rx__none { font-family: var(--f-mono); font-size: var(--t-sm); color: var(--ink-4); }
+.rx__go {
+  font-family: var(--f-mono);
+  font-size: var(--t-xs);
+  letter-spacing: 0.03em;
+  color: var(--ink-3);
+  border: 1px solid var(--rule);
+  padding: 4px 9px;
+  white-space: nowrap;
+  transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease);
+}
+.rx__go::after { content: " \2197"; }
+.rx__go:hover { color: var(--signal); border-color: var(--signal); }
+/* reactions outside the positive set are dimmed, so the four that sum to the
+   headline count read as a group */
+.rx__r--other { color: var(--ink-4); }

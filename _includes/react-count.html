@@ -1,0 +1,5 @@
+{%- comment -%} inline reaction count for an index row  ·  params: doc {%- endcomment -%}
+{%- assign rx = site.data.reactions.entries[include.doc.url] -%}
+{%- if rx and rx.positive > 0 -%}
+<span class="react" title="{{ rx.positive }} reaction{% if rx.positive != 1 %}s{% endif %} on GitHub">{{ rx.positive }}</span>
+{%- endif -%}

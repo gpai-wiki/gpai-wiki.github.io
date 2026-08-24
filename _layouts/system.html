@@ -28,6 +28,7 @@ layout: default
 
       {% if page.summary %}<p class="prose lead" style="max-width:var(--measure)">{{ page.summary }}</p>{% endif %}
       <article class="prose">{{ content }}</article>
+      {% include reactions.html %}
       {% include pager.html %}
     </div>
     {% include rail.html %}

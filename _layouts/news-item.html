@@ -40,6 +40,7 @@ layout: default
       {%- assign body = content | strip %}
       {%- if body != "" %}<article class="prose">{{ content }}</article>{% endif %}
 
+      {% include reactions.html %}
       {% include pager.html %}
     </div>
     {% include rail.html %}

@@ -1,0 +1,26 @@
+{%- comment -%}
+  Entry-page reaction block. Renders nothing until the entry has a Discussion,
+  which scripts/reactions.sh opens on the next scheduled run.
+{%- endcomment -%}
+{%- assign rx = site.data.reactions.entries[page.url] -%}
+{%- if rx %}
+<section class="rx">
+  {%- comment -%} Liquid treats 0 as truthy, so suppress the count explicitly {%- endcomment -%}
+  {% if rx.positive > 0 %}{% include rhead.html label="reactions" n=rx.positive %}
+  {% else %}{% include rhead.html label="reactions" %}{% endif %}
+  <div class="rx__row">
+    <div class="rx__set">
+      {%- if rx.up     > 0 %}<span class="rx__r"><span aria-hidden="true">&#128077;</span> {{ rx.up }}<span class="sr"> thumbs up</span></span>{% endif -%}
+      {%- if rx.heart  > 0 %}<span class="rx__r"><span aria-hidden="true">&#10084;&#65039;</span> {{ rx.heart }}<span class="sr"> heart</span></span>{% endif -%}
+      {%- if rx.tada   > 0 %}<span class="rx__r"><span aria-hidden="true">&#127881;</span> {{ rx.tada }}<span class="sr"> hooray</span></span>{% endif -%}
+      {%- if rx.rocket > 0 %}<span class="rx__r"><span aria-hidden="true">&#128640;</span> {{ rx.rocket }}<span class="sr"> rocket</span></span>{% endif -%}
+      {%- if rx.eyes   > 0 %}<span class="rx__r rx__r--other"><span aria-hidden="true">&#128064;</span> {{ rx.eyes }}<span class="sr"> eyes</span></span>{% endif -%}
+      {%- if rx.laugh  > 0 %}<span class="rx__r rx__r--other"><span aria-hidden="true">&#128512;</span> {{ rx.laugh }}<span class="sr"> laugh</span></span>{% endif -%}
+      {%- if rx.conf   > 0 %}<span class="rx__r rx__r--other"><span aria-hidden="true">&#128533;</span> {{ rx.conf }}<span class="sr"> confused</span></span>{% endif -%}
+      {%- if rx.down   > 0 %}<span class="rx__r rx__r--other"><span aria-hidden="true">&#128078;</span> {{ rx.down }}<span class="sr"> thumbs down</span></span>{% endif -%}
+      {%- if rx.total == 0 %}<span class="rx__none">no reactions yet</span>{% endif -%}
+    </div>
+    <a class="rx__go" href="{{ rx.url }}" rel="noopener">react on GitHub</a>
+  </div>
+</section>
+{%- endif %}
