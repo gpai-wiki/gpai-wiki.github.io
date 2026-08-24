@@ -124,7 +124,7 @@ install: |
 title:    "Catastrophic forgetting"
 date:     2026-08-19
 aka:      [catastrophic interference]
-symbol:   "$\\mathcal{L}_{\\text{old}}$"
+symbol:   "\\mathcal{L}_{\\text{old}}"      # plain TeX, no delimiters
 coined:   "McCloskey & Cohen, 1989"
 tags:     [memory, continual-learning]
 summary:  >
@@ -197,9 +197,13 @@ $$
 $$
 
 Rendering is KaTeX, so most of LaTeX's maths mode works — `align`, `cases`, `matrix`,
-`\text`, and multi-line environments with `\\` line breaks.
+`\text`, and multi-line environments with `\\` line breaks. KaTeX is **vendored into the
+repository** under `assets/vendor/katex/`, not loaded from a CDN, so equations render
+offline, behind a blocked CDN, and years from now. Nothing on a page needs the network to
+become readable.
 
-A few macros are predefined: `\R \N \Z \E \P \argmax \argmin \KL \given \defeq`.
+A few macros are predefined: `\R \N \Z \E \Prob \argmax \argmin \KL \given \defeq`
+(`\Prob` rather than `\P`, which KaTeX already uses for the pilcrow).
 For a numbered equation, use the include:
 
 {% raw %}

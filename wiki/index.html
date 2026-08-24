@@ -25,7 +25,7 @@ subtitle: >-
         <span class="row__t">{{ d.title | escape }}</span>
         {% if d.aka %}<span class="row__by">{{ d.aka | join: " · " }}</span>{% endif %}
       </span>
-      <span class="row__main"><span class="row__d">{{ d.summary | strip_html }}</span></span>
+      <span class="row__def"><span class="row__d">{{ d.summary | strip_html }}</span></span>
     </a></li>
     {% endfor %}
   </ul>

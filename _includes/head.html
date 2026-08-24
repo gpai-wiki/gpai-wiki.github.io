@@ -26,6 +26,11 @@
 <link rel="canonical" href="{{ page.url | absolute_url }}">
 
 {%- if page.math %}
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
-      integrity="sha384-nB0miv6/jRmo5UMMR1wu3Gz6NLsoTkbqJghGIsx//Rlm+ZU03BU6SQNC66uf4l5+" crossorigin="anonymous">
+{%- comment -%} KaTeX is vendored, not loaded from a CDN: maths must render offline,
+    behind a blocked CDN, and in ten years' time. {%- endcomment -%}
+<link rel="stylesheet" href="{{ '/assets/vendor/katex/katex.min.css' | relative_url }}">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="{{ '/assets/vendor/katex/fonts/KaTeX_Main-Regular.woff2' | relative_url }}">
+<link rel="preload" as="font" type="font/woff2" crossorigin
+      href="{{ '/assets/vendor/katex/fonts/KaTeX_Math-Italic.woff2' | relative_url }}">
 {%- endif %}

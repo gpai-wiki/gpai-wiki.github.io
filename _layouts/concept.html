@@ -10,7 +10,11 @@ layout: default
       <div class="meta">
         {% capture v %}{{ page.aka | join: " · " }}{% endcapture %}
         {% include meta.html k="Also called" v=v %}
-        {% if page.symbol %}{% include meta.html k="Notation" v=page.symbol %}{% endif %}
+        {%- if page.symbol -%}
+          {%- comment -%} authored as plain TeX; wrapped inline so it sits in the row, not centred {%- endcomment -%}
+          {%- capture v %}\({{ page.symbol | replace: "$$", "" | strip }}\){% endcapture -%}
+          {% include meta.html k="Notation" v=v %}
+        {%- endif %}
         {% if page.coined %}{% include meta.html k="Origin" v=page.coined %}{% endif %}
       </div>
       {% endif %}

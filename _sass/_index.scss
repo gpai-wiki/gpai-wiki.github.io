@@ -145,11 +145,24 @@
   }
 }
 
-/* two-column variant: concepts / glossary */
-@container (min-width: 700px) {
+/* two-column variant: concepts / glossary — term left, definition right.
+   Declared after the .row container rules so it overrides their tracks. */
+.row--term {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "main" "def";
+  row-gap: 4px;
+}
+.row__def { grid-area: def; min-width: 0; }
+.row__def .row__d { margin-top: 0; }
+/* the alternative names are an identifier, not metadata — let them wrap */
+.row--term .row__by { white-space: normal; overflow: visible; text-overflow: clip; }
+
+@container (min-width: 560px) {
   .row--term {
-    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-    grid-template-areas: "main end";
+    grid-template-columns: minmax(0, 232px) minmax(0, 1fr);
+    grid-template-areas: "main def";
+    column-gap: var(--sp-5);
+    row-gap: 0;
   }
 }
 

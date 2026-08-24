@@ -2,7 +2,7 @@
 title:    "World model"
 date:     2026-08-21
 aka:      [learned simulator, forward model, dynamics model]
-symbol:   "$$p(s_{t+1} \\given s_t, a_t)$$"
+symbol:   "p(s_{t+1} \\given s_t, a_t)"
 tags:     [world-models, planning]
 summary: >
   A learned predictive model of environment dynamics, used to evaluate candidate actions
